@@ -51,8 +51,9 @@ const Checkout = ({ navigation, selectedAddress, selectAddress, payNow }) => {
           },
         ]}
         onPress={() => {
-            navigation.navigate('Payment');
-          }} 
+          payNow(); 
+          navigation.navigate('Payment');
+        }} 
       >
         <Text style={{ color: '#fff', fontSize: 18, fontWeight: '600' }}>
           Pay Now
@@ -63,14 +64,12 @@ const Checkout = ({ navigation, selectedAddress, selectAddress, payNow }) => {
 };
 
 const mapStateToProps = (state) => ({
-  selectedAddress: state.selectedAddress,
-  
+  selectedAddress: state.user.selectedAddress, 
 });
 
 const mapDispatchToProps = {
   selectAddress,
   payNow,
-  
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Checkout);

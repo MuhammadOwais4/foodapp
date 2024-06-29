@@ -26,7 +26,7 @@ const Main = () => {
       description: 'Spicy chicken burger',
       price: '$12',
       discount: '$15',
-      image: require('../../../images/Beef_burgur.png'), 
+      image: require('../../../images/Chicken_burger.png'), 
     },
     {
       id: '3',
@@ -34,7 +34,7 @@ const Main = () => {
       description: 'Healthy veggie burger',
       price: '$8',
       discount: '$10',
-      image: require('../../../images/Beef_burgur.png'), 
+      image: require('../../../images/Veggie_burger.png'), 
     },
   ];
 

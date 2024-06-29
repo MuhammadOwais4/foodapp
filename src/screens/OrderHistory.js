@@ -4,12 +4,14 @@ import { useSelector, useDispatch } from 'react-redux';
 import Header from './common/Header';
 import { AddTocart, removeTocart } from '../Redux/reducer';
 import { useNavigation } from '@react-navigation/native'; 
+import Beef_burger from '../images/Beef_burgur.png';
+import Veggie_burger from '../images/Veggie_burger.png';
+import Chicken_burger from '../images/Chicken_burger.png';
 
 const OrderHistory = () => {
   const cart = useSelector((state) => state.user.cart);
   const dispatch = useDispatch();
   const [totalAmount, setTotalAmount] = useState(0);
-  const [imageErrors, setImageErrors] = useState({});
   const navigation = useNavigation(); 
 
   useEffect(() => {
@@ -21,43 +23,56 @@ const OrderHistory = () => {
   };
 
   const handleDecreaseQuantity = (item) => {
-    dispatch(removeTocart(item.id));
+    if (item.quantity > 1) {
+      dispatch(removeTocart(item.id));
+    }
   };
 
   const updateTotalAmount = () => {
     const total = cart.reduce((sum, item) => sum + parseFloat(item.price.replace('$', '')) * item.quantity, 0);
-    setTotalAmount(total);
+    setTotalAmount(total.toFixed(2)); 
   };
 
-  const handleImageError = (id) => {
-    setImageErrors((prevErrors) => ({ ...prevErrors, [id]: true }));
-  };
+  const renderItem = ({ item }) => {
+    let itemImage;
+    switch (item.name) {
+      case 'Veggie Burger':
+        itemImage = Veggie_burger;
+        break;
+      case 'Chicken Burger':
+        itemImage = Chicken_burger;
+        break;
+      default:
+        itemImage = Beef_burger;
+        break;
+    }
 
-  const renderItem = ({ item }) => (
-    <View style={styles.orderItem}>
-      <View style={styles.itemView}>
-        <Image 
-          source={imageErrors[item.id] ? require('../images/Beef_burgur.png') : { uri: item.imageUrl }} 
-          style={styles.itemImage} 
-          onError={() => handleImageError(item.id)} 
-        />
-        <View style={{ flex: 1, marginLeft: 10 }}>
-          <Text style={styles.nameText}>{item.name}</Text>
-          <Text style={styles.detailsText}>{item.description}</Text>
-          <View style={styles.quantityContainer}>
-            <TouchableOpacity onPress={() => handleDecreaseQuantity(item)}>
-              <Text style={styles.quantityButton}>-</Text>
-            </TouchableOpacity>
-            <Text style={styles.quantityText}>{item.quantity}</Text>
-            <TouchableOpacity onPress={() => handleIncreaseQuantity(item)}>
-              <Text style={styles.quantityButton}>+</Text>
-            </TouchableOpacity>
+    return (
+      <View style={styles.orderItem}>
+        <View style={styles.itemView}>
+          <Image 
+            source={item.imageUrl ? { uri: item.imageUrl } : itemImage} 
+            style={styles.itemImage} 
+            onError={(error) => console.log("Image load error", error)} 
+          />
+          <View style={{ flex: 1, marginLeft: 10 }}>
+            <Text style={styles.nameText}>{item.name}</Text>
+            <Text style={styles.detailsText}>{item.description}</Text>
+            <View style={styles.quantityContainer}>
+              <TouchableOpacity onPress={() => handleDecreaseQuantity(item)}>
+                <Text style={styles.quantityButton}>-</Text>
+              </TouchableOpacity>
+              <Text style={styles.quantityText}>{item.quantity}</Text>
+              <TouchableOpacity onPress={() => handleIncreaseQuantity(item)}>
+                <Text style={styles.quantityButton}>+</Text>
+              </TouchableOpacity>
+            </View>
+            <Text style={styles.priceText}>{item.price}</Text>
           </View>
-          <Text style={styles.priceText}>{item.price}</Text>
         </View>
       </View>
-    </View>
-  );
+    );
+  };
 
   return (
     <View style={styles.container}>

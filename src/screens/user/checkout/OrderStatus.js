@@ -6,6 +6,9 @@ import Header from '../../common/Header';
 import { useNavigation } from '@react-navigation/native';
 
 import deleteIcon from '../../../images/delete.png';
+import Chicken_burger from '../../../images/Chicken_burger.png';
+import Veggie_burger from '../../../images/Veggie_burger.png';
+import Beef_burgur from '../../../images/Beef_burgur.png';
 
 const OrderStatus = () => {
   const navigation = useNavigation();
@@ -47,42 +50,55 @@ const OrderStatus = () => {
         {
           text: "Yes",
           onPress: () => {
-            navigation.navigate('Cart'); 
+            navigation.navigate('Cart');
           }
         }
       ]
     );
   };
 
-  const renderItem = ({ item }) => (
-    <View style={styles.orderItem}>
-      <View style={styles.itemView}>
-        <Image source={item.image} style={styles.itemImage} />
-        <View style={{ flex: 1, marginLeft: 10 }}>
-          <Text style={styles.nameText}>{item.name}</Text>
-          <Text style={styles.detailsText}>{item.description}</Text>
-          <Text style={styles.priceText}>{item.price}</Text>
-        </View>
-        <View style={styles.iconContainer}>
+  const renderItem = ({ item }) => {
+    let burgerImage;
+    switch (item.name) {
+      case 'Beef Burger':
+        burgerImage = Beef_burgur;
+        break;
+      case 'Chicken burger':
+        burgerImage = Chicken_burger;
+        break;
+      case 'Veggie burger':
+        burgerImage = Veggie_burger;
+        break;
+      default:
+        burgerImage = Beef_burgur; // Default image if no match
+    }
+
+    return (
+      <View style={styles.orderItem}>
+        <View style={styles.itemView}>
+          <Image source={burgerImage} style={styles.itemImage} />
+          <View style={{ flex: 1, marginLeft: 10 }}>
+            <Text style={styles.nameText}>{item.name}</Text>
+            <Text style={styles.detailsText}>{item.description}</Text>
+            <Text style={styles.priceText}>{item.price}</Text>
+          </View>
           <TouchableOpacity onPress={() => handleRemoveFromCart(item.id)}>
             <Image source={deleteIcon} style={styles.icon} />
           </TouchableOpacity>
         </View>
       </View>
-    </View>
-  );
+    );
+  };
 
   return (
     <View style={styles.container}>
       <Header title={'Orders status'} />
       
-      {cart.length === 0 && (
+      {cart.length === 0 ? (
         <TouchableOpacity style={[styles.button, styles.cancelButton]} onPress={handleCancelOrder}>
           <Text style={styles.buttonText}>Cancel Order</Text>
         </TouchableOpacity>
-      )}
-
-      {cart.length > 0 && (
+      ) : (
         <React.Fragment>
           <FlatList
             data={cart}
