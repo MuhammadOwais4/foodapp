@@ -4,9 +4,9 @@ import { useNavigation } from '@react-navigation/native';
 import { useSelector, useDispatch } from 'react-redux';
 import { removeTocart } from '../../Redux/reducer';
 import deleteIcon from '../../images/delete.png';
-import Beef_burgur from '../../images/Beef_burgur.png'; 
-import Chicken_burger from '../../images/Chicken_burger.png'; 
-import Veggie_burger from '../../images/Veggie_burger.png'; 
+import Beef_burger from '../../images/Beef_burgur.png';
+import Chicken_burger from '../../images/Chicken_burger.png';
+import Veggie_burger from '../../images/Veggie_burger.png';
 
 const Cart = () => {
   const navigation = useNavigation();
@@ -38,17 +38,15 @@ const Cart = () => {
   const renderItem = ({ item }) => {
     let itemImage;
     switch (item.name) {
-      case 'Beef Burger':
-        itemImage = Beef_burgur;
-        break;
-      case 'Chicken burger':
-        itemImage = Chicken_burger;
-        break;
-      case 'Veggie burger':
+      case 'Veggie Burger':
         itemImage = Veggie_burger;
         break;
+      case 'Chicken Burger':
+        itemImage = Chicken_burger;
+        break;
       default:
-        itemImage = Beef_burgur; // Default image in case none matches
+        itemImage = Beef_burger;
+        break;
     }
 
     return (
