@@ -39,6 +39,10 @@ const UserSignup = ({ navigation }) => {
         style={styles.inputStyle}
         placeholder={'Enter Password'}
       />
+      <TextInput
+        style={styles.genderinput}
+        placeholder={'Gender'}
+      />
       <TouchableOpacity
         style={styles.loginBtn}
         onPress={handleSignup}
@@ -64,6 +68,15 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   inputStyle: {
+    paddingLeft: 20,
+    height: 50,
+    alignSelf: 'center',
+    marginTop: 30,
+    borderWidth: 0.5,
+    borderRadius: 10,
+    width: '90%',
+  },
+  genderinput:{
     paddingLeft: 20,
     height: 50,
     alignSelf: 'center',

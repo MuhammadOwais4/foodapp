@@ -30,7 +30,7 @@ const Profile = () => {
               <View style={rncStyles.flexCenter}>
                 <Text style={[rncStyles.fs1, rncStyles.textPrimary, rncStyles.textBold, rncStyles.mb1]}>Muhammad Owais</Text>
                 <Text style={[rncStyles.fs5, rncStyles.textSecondary]}>@Muhammad_owais</Text>
-                <TouchableOpacity style={[rncStyles.btnPrimary, rncStyles.mt1]}>
+                <TouchableOpacity style={[rncStyles.btnPrimary, rncStyles.mt1]}  onPress={() => {navigation.navigate('EiditProfile');}}>
                   <Text style={rncStyles.textWhite}>Edit Profile</Text>
                 </TouchableOpacity>
               </View>
@@ -40,7 +40,7 @@ const Profile = () => {
               {renderInfoItem('Full Name', 'Muhammad Owais')}
               {renderInfoItem('Email', 'muhammadowais@gmail.com')}
               {renderInfoItem('Gender', 'Male')}
-              {renderInfoItem('Contact', '+92 0321 2484 162')}
+              {renderInfoItem('Contact', '+92 0321 2484 1622')}
               <View style={styles.logoutButtonContainer}>
                 <TouchableOpacity style={[rncStyles.btnPrimary, rncStyles.rounded]} onPress={() => {navigation.navigate('UserLogin');}}>
                   <Text style={[rncStyles.fs5, rncStyles.textWhite, rncStyles.textCenter]}>Logout</Text>
