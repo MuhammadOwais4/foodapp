@@ -90,8 +90,8 @@ const OrderHistory = () => {
       <View style={styles.totalAmountContainer}>
         <Text style={styles.totalAmountText}>Total Amount: ${totalAmount}</Text>
         <Button
-          title="Proceed to Payment"
-          onPress={() => navigation.navigate('Checkout', { totalAmount })}
+          title="Proceed to Address"
+          onPress={() => navigation.navigate('Address', { totalAmount })}
         />
       </View>
     </View>

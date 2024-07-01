@@ -70,7 +70,7 @@ const OrderStatus = () => {
         burgerImage = Veggie_burger;
         break;
       default:
-        burgerImage = Beef_burgur; 
+        burgerImage = Beef_burgur; // Default image if no match
     }
 
     return (
@@ -103,7 +103,7 @@ const OrderStatus = () => {
           <FlatList
             data={cart}
             renderItem={renderItem}
-            keyExtractor={(item) => item.id.toString()}
+            keyExtractor={(item) => item.id.toString()} // Ensure keys are unique
             contentContainerStyle={styles.flatListContent}
           />
           

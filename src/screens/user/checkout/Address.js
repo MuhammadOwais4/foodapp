@@ -32,7 +32,7 @@ const AddNewAddress = ({ navigation }) => {
       <TouchableOpacity
         style={styles.addNewBtn}
         onPress={() => {
-          navigation.navigate('Home');
+          navigation.navigate('Checkout');
         }}>
         <Text style={styles.btnText}>Save Address</Text>
       </TouchableOpacity>
