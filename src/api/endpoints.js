@@ -1,0 +1,4 @@
+const endpoint={
+Login:'',
+SIGNUP:'',
+}

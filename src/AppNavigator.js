@@ -17,8 +17,8 @@ import AddNewAddress from './screens/user/checkout/AddNewAddress';
 import OrderStatus from './screens/user/checkout/OrderStatus';
 import OrderHistory from './screens/OrderHistory';
 import Payment from './screens/Payment'
-// import eiditProfile from './screens/common/eiditProfile.js'
 import EiditProfile from './screens/common/eiditProfile.js';
+import Profile from './screens/user/home_tabs/Profile.js';
 
 
 const Stack = createStackNavigator();
@@ -102,9 +102,14 @@ const AppNavigator = () => {
         options={{headerShown: false}}
         />
         <Stack.Screen
+        component={Profile}
+        name="Profile"
+        options={{headerShown: false}}
+        />
+        <Stack.Screen
         component={EiditProfile}
         name="EiditProfile"
-        options={{headerShown: false}}
+        options={{headerShown: true}}
         />
       </Stack.Navigator>
     </NavigationContainer>
