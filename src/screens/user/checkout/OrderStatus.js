@@ -63,14 +63,14 @@ const OrderStatus = () => {
       case 'Beef Burger':
         burgerImage = Beef_burgur;
         break;
-      case 'Chicken burger':
+      case 'Chicken Burger':
         burgerImage = Chicken_burger;
         break;
-      case 'Veggie burger':
+      case 'Veggie Burger':
         burgerImage = Veggie_burger;
         break;
       default:
-        burgerImage = Beef_burgur; // Default image if no match
+        burgerImage = Beef_burgur; 
     }
 
     return (
@@ -92,7 +92,7 @@ const OrderStatus = () => {
 
   return (
     <View style={styles.container}>
-      <Header title={'Orders status'} />
+      <Header title={'Order Status'} />
       
       {cart.length === 0 ? (
         <TouchableOpacity style={[styles.button, styles.cancelButton]} onPress={handleCancelOrder}>
@@ -175,14 +175,10 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
   },
-  iconContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    width: 50,
-  },
   icon: {
     width: 24,
     height: 24,
+    tintColor: 'red',
   },
 });
 
