@@ -36,19 +36,19 @@ const SelectLogin = ({navigation}) => {
           ? translation[0].Urdu
           : null}
       </Text>
-      {/* <TouchableOpacity
+      <TouchableOpacity
         style={styles.btn}
         onPress={() => {
           navigation.navigate('Login');
         }}>
         <Text style={styles.btnText}>Admin Login</Text>
-      </TouchableOpacity> */}
+      </TouchableOpacity>
       <TouchableOpacity
         style={styles.btn}
         onPress={() => {
-          navigation.navigate('UserLogin');
+          navigation.navigate('UserSignup');
         }}>
-        <Text style={styles.btnText}>User Login</Text>
+        <Text style={styles.btnText}>User Signup</Text>
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.selectLangaugeBtn}

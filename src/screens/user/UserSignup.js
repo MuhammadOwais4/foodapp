@@ -1,22 +1,50 @@
+import React, { useState } from 'react';
 import {
   View,
   Text,
   StyleSheet,
   TextInput,
   TouchableOpacity,
+  Alert,
 } from 'react-native';
-import React, { useState } from 'react';
 import Loader from '../common/Loader';
+import ApiHandler from '../../api/apihandler'; 
 
 const UserSignup = ({ navigation }) => {
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
+  const [password, setPassword] = useState('');
+  const [gender, setGender] = useState('');
   const [loading, setLoading] = useState(false);
 
-  const handleSignup = () => {
+  const api = ApiHandler();
+
+  const handleSignup = async () => {
     setLoading(true);
-    setTimeout(() => {
+
+    try {
+      const response = await api.post('/signup', {
+        username,
+        email,
+        phone,
+        password,
+        gender,
+      });
+
+      if (response.status === 201) { 
+        setLoading(false);
+        Alert.alert('Success', 'Signup successful!', [
+          { text: 'OK', onPress: () => navigation.navigate('UserLogin') }
+        ]);
+      } else {
+        setLoading(false);
+        Alert.alert('Error', 'Signup failed. Please try again.');
+      }
+    } catch (error) {
       setLoading(false);
-      navigation.navigate('UserLogin');
-    }, 5000); 
+      Alert.alert('Error', error.message || 'Signup failed. Please try again.');
+    }
   };
 
   return (
@@ -25,27 +53,39 @@ const UserSignup = ({ navigation }) => {
       <TextInput
         style={styles.inputStyle}
         placeholder={'Enter Name'}
+        value={username}
+        onChangeText={setUsername}
       />
       <TextInput
         style={styles.inputStyle}
         placeholder={'Enter Email'}
+        value={email}
+        onChangeText={setEmail}
       />
       <TextInput
         style={styles.inputStyle}
         placeholder={'Enter Mobile'}
+        value={phone}
+        onChangeText={setPhone}
         keyboardType={'number-pad'}
       />
       <TextInput
         style={styles.inputStyle}
         placeholder={'Enter Password'}
+        value={password}
+        onChangeText={setPassword}
+        secureTextEntry={true}
       />
       <TextInput
         style={styles.genderinput}
         placeholder={'Gender'}
+        value={gender}
+        onChangeText={setGender}
       />
       <TouchableOpacity
         style={styles.loginBtn}
         onPress={handleSignup}
+        disabled={loading}
       >
         <Text style={styles.btnText}>Sign up</Text>
       </TouchableOpacity>
@@ -59,13 +99,14 @@ export default UserSignup;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   title: {
     fontSize: 20,
     fontWeight: '800',
     color: '#000',
     marginTop: 100,
-    alignSelf: 'center',
   },
   inputStyle: {
     paddingLeft: 20,
@@ -76,7 +117,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     width: '90%',
   },
-  genderinput:{
+  genderinput: {
     paddingLeft: 20,
     height: 50,
     alignSelf: 'center',

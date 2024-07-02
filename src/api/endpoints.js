@@ -1,4 +1,4 @@
 const endpoint={
-Login:'',
-SIGNUP:'',
+SIGNUP:'auth/signup',
+Login:'auth/login',
 }
