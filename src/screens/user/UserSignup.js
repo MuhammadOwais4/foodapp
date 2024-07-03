@@ -18,7 +18,7 @@ const UserSignup = ({ navigation }) => {
   const [signUpData, setSignUpData] = useState({
     username: 'owais',
     email: 'owais@gmail.com',
-    phone:'1234567890',
+    phone: '1234567890',
     password: '123456',
     confirmPassword: '123456',
     gender: 'Male',
@@ -58,9 +58,9 @@ const UserSignup = ({ navigation }) => {
         <TextInput
           style={styles.inputStyle}
           placeholder={'Enter Mobile'}
-          value={signUpData.mobile}
+          value={signUpData.phone}
           keyboardType={'number-pad'}
-          onChangeText={(value) => handleInputChange('mobile', value)}
+          onChangeText={(value) => handleInputChange('phone', value)}
         />
         <TextInput
           style={styles.inputStyle}
