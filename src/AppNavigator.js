@@ -19,6 +19,7 @@ import OrderHistory from './screens/OrderHistory';
 import Payment from './screens/Payment'
 import EiditProfile from './screens/common/eiditProfile.js';
 import Profile from './screens/user/home_tabs/Profile.js';
+import QuickBite from './screens/user/home_tabs/QuickBite.js';
 
 
 const Stack = createStackNavigator();
@@ -110,6 +111,10 @@ const AppNavigator = () => {
         component={EiditProfile}
         name="EiditProfile"
         options={{headerShown: true}}
+        />
+        <Stack.Screen
+        component={QuickBite}
+        name="QuickBite"
         />
       </Stack.Navigator>
     </NavigationContainer>

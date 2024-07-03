@@ -1,6 +1,6 @@
 import {View, Text, StyleSheet, TouchableOpacity, Image} from 'react-native';
 import React, {useState} from 'react';
-import Main from './home_tabs/Main';
+import Main from './home_tabs/QuickBite';
 import Search from './home_tabs/Search';
 import Wishlist from './home_tabs/Wishlist';
 import OrderHistory from '../OrderHistory';

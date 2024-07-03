@@ -65,7 +65,6 @@ const Main = () => {
   return (
     <View style={styles.container}>
       <Header
-        title={'Quick-Bite'}
         icon={require('../../../images/cart.png')} 
         onClickIcon={() => navigation.navigate('Cart')}
         cartItemCount={cart.length}
