@@ -1,10 +1,10 @@
 import {View, Text, StyleSheet, TouchableOpacity, Image} from 'react-native';
 import React, {useState} from 'react';
-import Main from './home_tabs/QuickBite';
-import Search from './home_tabs/Search';
-import Wishlist from './home_tabs/Wishlist';
+import Main from './BottomNavigation/QuickBite';
+import Search from './BottomNavigation/Search';
+import Wishlist from './BottomNavigation/Wishlist';
 import OrderHistory from '../OrderHistory';
-import Profile from './home_tabs/Profile';
+import Profile from './BottomNavigation/Profile';
 
 const Home = () => {
   const [selectedTab, setSelectedTab] = useState(0);

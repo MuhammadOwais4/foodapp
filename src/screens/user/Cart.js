@@ -7,6 +7,17 @@ import deleteIcon from '../../images/delete.png';
 import Beef_burger from '../../images/Beef_burgur.png';
 import Chicken_burger from '../../images/Chicken_burger.png';
 import Veggie_burger from '../../images/Veggie_burger.png';
+import AcharGosht from '../../images/Achar-Gosht.png';
+import Daalchawal from '../../images/Daalchawal.png';
+
+
+const images = {
+  'Beef Burger': Beef_burger,
+  'Chicken Burger': Chicken_burger,
+  'Veggie Burger': Veggie_burger,
+  'Achar Gosht': AcharGosht,
+  'Daal chawal': Daalchawal, 
+};
 
 const Cart = () => {
   const navigation = useNavigation();
@@ -36,22 +47,9 @@ const Cart = () => {
   };
 
   const renderItem = ({ item }) => {
-    let itemImage;
-    switch (item.name) {
-      case 'Veggie Burger':
-        itemImage = Veggie_burger;
-        break;
-      case 'Chicken Burger':
-        itemImage = Chicken_burger;
-        break;
-      default:
-        itemImage = Beef_burger;
-        break;
-    }
-
     return (
       <View style={styles.itemView}>
-        <Image source={itemImage} style={styles.itemImage} />
+        <Image source={images[item.name]} style={styles.itemImage} />
         <View style={styles.nameView}>
           <Text style={styles.nameText}>{item.name}</Text>
           <Text style={styles.descText}>{item.description}</Text>
@@ -66,7 +64,7 @@ const Cart = () => {
       </View>
     );
   };
-
+  
   return (
     <View style={styles.container}>
       {cart.length > 0 ? (
@@ -79,6 +77,7 @@ const Cart = () => {
       ) : (
         <View style={styles.emptyCartView}>
           <Text style={styles.emptyCartText}>Your cart is empty</Text>
+
         </View>
       )}
       {cart.length > 0 && (
@@ -170,6 +169,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     paddingVertical: 15,
     marginHorizontal: 20,
+    marginBottom: 20,
   },
   confirmButton: {
     backgroundColor: 'green',

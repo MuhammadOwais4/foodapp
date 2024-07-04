@@ -1,19 +1,20 @@
 import React from 'react';
-import { View, Text, StyleSheet, FlatList, Image, TouchableOpacity, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, Image, TouchableOpacity, FlatList } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Header from '../../common/Header';
 import { useDispatch, useSelector } from 'react-redux';
 import { AddTocart } from '../../../Redux/reducer'; 
+import Home from '../Home';
 
-const Main = () => {
+
+const QuickBite = () => {
   const navigation = useNavigation();
-  const { height, width } = Dimensions.get('screen');
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.user.cart);
 
-  const data = [
+  const fastFoodData = [
     {
-      id: '1',
+      id: 'fastFood-1',
       name: 'Beef Burger',
       description: 'Delicious beef burger',
       price: '$10',
@@ -21,7 +22,7 @@ const Main = () => {
       image: require('../../../images/Beef_burgur.png'), 
     },
     {
-      id: '2',
+      id: 'fastFood-2',
       name: 'Chicken Burger',
       description: 'Spicy chicken burger',
       price: '$12',
@@ -29,7 +30,7 @@ const Main = () => {
       image: require('../../../images/Chicken_burger.png'), 
     },
     {
-      id: '3',
+      id: 'fastFood-3',
       name: 'Veggie Burger',
       description: 'Healthy veggie burger',
       price: '$8',
@@ -38,13 +39,32 @@ const Main = () => {
     },
   ];
 
+  const pakistaniFoodData = [
+    {
+      id: 'pakistaniFood-1',
+      name: 'Achar Gosht',
+      description: 'Delicious Achar Gosht',
+      price: '$10',
+      discount: '$12',
+      image: require('../../../images/Achar-Gosht.png'),
+    },
+    {
+      id: 'pakistaniFood-2',
+      name: 'Daal chawal',
+      description: 'Spicy Daal chawal',
+      price: '$12',
+      discount: '$15',
+      image: require('../../../images/Daalchawal.png'),
+    },
+  ];
+
   const onAddToCart = (item) => {
     console.log('Added to cart:', item);
-    dispatch(AddTocart(item));
+    dispatch(AddTocart(item)); 
   };
 
   const renderItem = ({ item }) => (
-    <View style={styles.itemContainer}>
+    <TouchableOpacity style={styles.itemContainer} onPress={() => onAddToCart(item)}>
       <View style={styles.itemView}>
         <Image source={item.image} style={styles.itemImage} />
         <View style={styles.itemDetails}>
@@ -55,28 +75,36 @@ const Main = () => {
             <Text style={styles.itemDiscount}>{item.discount}</Text>
           </View>
         </View>
-        <TouchableOpacity style={styles.addToCartBtn} onPress={() => onAddToCart(item)}>
+        <View style={styles.addToCartBtn}>
           <Text style={styles.addToCartText}>Add To Cart</Text>
-        </TouchableOpacity>
+        </View>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 
   return (
     <View style={styles.container}>
       <Header
-        icon={require('../../../images/cart.png')} 
+        icon={require('../../../images/cart.png')}
         onClickIcon={() => navigation.navigate('Cart')}
         cartItemCount={cart.length}
       />
-            <Text style={styles.itemBeforeText}>Fast Food</Text>  
-      <FlatList
-        data={data}
-        renderItem={renderItem}
-        keyExtractor={(item) => item.id.toString()}
-        contentContainerStyle={styles.scrollViewContent}
-        style={{ width: '100%' }}
-      />
+      <ScrollView style={styles.scrollView}>
+        <Text style={styles.sectionTitle}>Fast Food</Text>
+        <FlatList
+          data={fastFoodData}
+          renderItem={renderItem}
+          keyExtractor={(item) => item.id.toString()}
+          contentContainerStyle={styles.scrollViewContent}
+        />
+        <Text style={styles.sectionTitle}>Pakistani Food</Text>
+        <FlatList
+          data={pakistaniFoodData}
+          renderItem={renderItem}
+          keyExtractor={(item) => item.id.toString()}
+          contentContainerStyle={styles.scrollViewContent}
+        />
+      </ScrollView>
     </View>
   );
 };
@@ -86,19 +114,22 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
   },
-  scrollViewContent: {
+  scrollView: {
+    flex: 1,
     paddingHorizontal: 16,
-    paddingVertical: 20,
+  },
+  scrollViewContent: {
+    paddingTop: 20,
+  },
+  sectionTitle: {
+    marginBottom: 10,
+    fontSize: 18,
+    fontWeight: '600',
+    color: '#333',
+    textAlign: 'center',
   },
   itemContainer: {
     marginBottom: 16,
-  },
-  itemBeforeText: {
-    marginBottom: 8,
-    fontSize: 16,
-    fontWeight: '500',
-    color: '#444',
-    alignSelf: 'center',
   },
   itemView: {
     flexDirection: 'row',
@@ -118,12 +149,11 @@ const styles = StyleSheet.create({
     marginLeft: 12,
   },
   itemName: {
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: '600',
   },
   itemDescription: {
     fontSize: 14,
-    marginTop: 4,
     color: '#666',
   },
   itemPriceContainer: {
@@ -135,11 +165,12 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '700',
     color: 'green',
+    marginTop: 4,
   },
   itemDiscount: {
-    fontSize: 15,
-    marginLeft: 8,
+    fontSize: 14,
     color: '#999',
+    marginLeft: 8,
     textDecorationLine: 'line-through',
   },
   addToCartBtn: {
@@ -157,4 +188,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Main;
+export default QuickBite;

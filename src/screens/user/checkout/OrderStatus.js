@@ -8,7 +8,17 @@ import { useNavigation } from '@react-navigation/native';
 import deleteIcon from '../../../images/delete.png';
 import Chicken_burger from '../../../images/Chicken_burger.png';
 import Veggie_burger from '../../../images/Veggie_burger.png';
-import Beef_burgur from '../../../images/Beef_burgur.png';
+import Beef_burger from '../../../images/Beef_burgur.png';
+import AcharGosht from '../../../images/Achar-Gosht.png';
+import Daalchawal from '../../../images/Daalchawal.png';
+
+const imageMapping = {
+  'Veggie Burger': Veggie_burger,
+  'Chicken Burger': Chicken_burger,
+  'Achar Gosht': AcharGosht,
+  'Daal Chawal': Daalchawal,
+  'Beef Burger': Beef_burger,
+};
 
 const OrderStatus = () => {
   const navigation = useNavigation();
@@ -58,25 +68,12 @@ const OrderStatus = () => {
   };
 
   const renderItem = ({ item }) => {
-    let burgerImage;
-    switch (item.name) {
-      case 'Beef Burger':
-        burgerImage = Beef_burgur;
-        break;
-      case 'Chicken Burger':
-        burgerImage = Chicken_burger;
-        break;
-      case 'Veggie Burger':
-        burgerImage = Veggie_burger;
-        break;
-      default:
-        burgerImage = Beef_burgur; // Default image if no match
-    }
+    const itemImage = imageMapping[item.name] || Beef_burger;
 
     return (
       <View style={styles.orderItem}>
         <View style={styles.itemView}>
-          <Image source={burgerImage} style={styles.itemImage} />
+          <Image source={item.imageUrl ? { uri: item.imageUrl } : itemImage} style={styles.itemImage} />
           <View style={{ flex: 1, marginLeft: 10 }}>
             <Text style={styles.nameText}>{item.name}</Text>
             <Text style={styles.detailsText}>{item.description}</Text>
@@ -103,7 +100,7 @@ const OrderStatus = () => {
           <FlatList
             data={cart}
             renderItem={renderItem}
-            keyExtractor={(item) => item.id.toString()} // Ensure keys are unique
+            keyExtractor={(item) => item.id.toString()} 
             contentContainerStyle={styles.flatListContent}
           />
           

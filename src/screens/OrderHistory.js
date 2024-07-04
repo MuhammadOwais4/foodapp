@@ -2,11 +2,20 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, FlatList, Image, TouchableOpacity, Button } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import Header from './common/Header';
-import { AddTocart, removeTocart } from '../Redux/reducer';
+import { AddTocart, removeTocart } from '../Redux/reducer'; 
 import { useNavigation } from '@react-navigation/native'; 
 import Beef_burger from '../images/Beef_burgur.png';
 import Veggie_burger from '../images/Veggie_burger.png';
 import Chicken_burger from '../images/Chicken_burger.png';
+import Afghanipulao from '../images/Afghani-pulao.png';
+import AcharGosht from '../images/Achar-Gosht.png';
+
+const imageMapping = {
+  'Veggie Burger': Veggie_burger,
+  'Chicken Burger': Chicken_burger,
+  'Achar Gosht': AcharGosht,
+  'Afghani-pulao': Afghanipulao,
+};
 
 const OrderHistory = () => {
   const cart = useSelector((state) => state.user.cart);
@@ -34,24 +43,13 @@ const OrderHistory = () => {
   };
 
   const renderItem = ({ item }) => {
-    let itemImage;
-    switch (item.name) {
-      case 'Veggie Burger':
-        itemImage = Veggie_burger;
-        break;
-      case 'Chicken Burger':
-        itemImage = Chicken_burger;
-        break;
-      default:
-        itemImage = Beef_burger;
-        break;
-    }
+    const itemImageSource = item.imageUrl ? { uri: item.imageUrl } : imageMapping[item.name] || Beef_burger ;
 
     return (
       <View style={styles.orderItem}>
         <View style={styles.itemView}>
           <Image 
-            source={item.imageUrl ? { uri: item.imageUrl } : itemImage} 
+            source={itemImageSource} 
             style={styles.itemImage} 
             onError={(error) => console.log("Image load error", error)} 
           />
@@ -80,20 +78,22 @@ const OrderHistory = () => {
       {cart.length === 0 ? (
         <Text style={styles.emptyText}>No orders found.</Text>
       ) : (
-        <FlatList
-          data={cart}
-          renderItem={renderItem}
-          keyExtractor={(item) => item.id.toString()}
-          contentContainerStyle={styles.flatListContent}
-        />
+        <>
+          <FlatList
+            data={cart}
+            renderItem={renderItem}
+            keyExtractor={(item) => item.id.toString()}
+            contentContainerStyle={styles.flatListContent}
+          />
+          <View style={styles.totalAmountContainer}>
+            <Text style={styles.totalAmountText}>Total Amount: ${totalAmount}</Text>
+            <Button
+              title="Proceed to Address"
+              onPress={() => navigation.navigate('Address', { totalAmount })}
+            />
+          </View>
+        </>
       )}
-      <View style={styles.totalAmountContainer}>
-        <Text style={styles.totalAmountText}>Total Amount: ${totalAmount}</Text>
-        <Button
-          title="Proceed to Address"
-          onPress={() => navigation.navigate('Address', { totalAmount })}
-        />
-      </View>
     </View>
   );
 };

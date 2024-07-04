@@ -18,8 +18,8 @@ import OrderStatus from './screens/user/checkout/OrderStatus';
 import OrderHistory from './screens/OrderHistory';
 import Payment from './screens/Payment'
 import EiditProfile from './screens/common/eiditProfile.js';
-import Profile from './screens/user/home_tabs/Profile.js';
-import QuickBite from './screens/user/home_tabs/QuickBite.js';
+import Profile from './screens/user/BottomNavigation/Profile.js';
+import QuickBite from './screens/user/BottomNavigation/QuickBite.js';
 
 
 const Stack = createStackNavigator();
