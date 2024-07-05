@@ -39,7 +39,7 @@ const UserSignup = ({ navigation }) => {
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
-      navigation.navigate('QuickBite');
+      navigation.navigate('UserLogin');
     }, 2000);
   };
 
