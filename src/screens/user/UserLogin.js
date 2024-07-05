@@ -5,9 +5,14 @@ import {
   StyleSheet,
   TextInput,
   TouchableOpacity,
+  Image,
 } from 'react-native';
-import Loader from '../common/Loader'; 
+
+import Loader from '../common/Loader';
 import { translation } from '../../utils';
+
+import facebookIcon from '../../images/facebook.png';
+import googleIcon from '../../images/google.png';
 
 const UserLogin = ({ navigation }) => {
   const [selectedLang, setSelectedLang] = useState(0);
@@ -18,21 +23,21 @@ const UserLogin = ({ navigation }) => {
     setTimeout(() => {
       setLoading(false);
       navigation.navigate('Home');
-    }, 5000); 
+    }, 5000);
   };
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>
-        {selectedLang == 0
+        {selectedLang === 0
           ? translation[1].English
-          : selectedLang == 1
+          : selectedLang === 1
           ? translation[1].Tamil
-          : selectedLang == 2
+          : selectedLang === 2
           ? translation[1].Hindi
-          : selectedLang == 3
+          : selectedLang === 3
           ? translation[1].Punjabi
-          : selectedLang == 4
+          : selectedLang === 4
           ? translation[1].Urdu
           : null}
       </Text>
@@ -59,6 +64,15 @@ const UserLogin = ({ navigation }) => {
         Create New Account
       </Text>
       {loading && <Loader />}
+
+      <View style={styles.socialLogin}>
+        <TouchableOpacity style={styles.socialIcon}>
+          <Image source={facebookIcon} style={styles.socialImage} />
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.socialIcon}>
+          <Image source={googleIcon} style={styles.socialImage} />
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
@@ -106,5 +120,17 @@ const styles = StyleSheet.create({
     textDecorationLine: 'underline',
     marginTop: 50,
     alignSelf: 'center',
+  },
+  socialLogin: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginTop: 20,
+  },
+  socialIcon: {
+    marginHorizontal: 10,
+  },
+  socialImage: {
+    width: 50,
+    height: 50,
   },
 });

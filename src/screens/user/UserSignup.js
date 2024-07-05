@@ -9,8 +9,13 @@ import {
   KeyboardAvoidingView,
   ScrollView,
   Platform,
+  Image,
 } from 'react-native';
 import Loader from '../common/Loader';
+
+// Import your Facebook and Google icons
+import facebookIcon from '../../images/facebook.png';
+import googleIcon from '../../images/google.png';
 
 const UserSignup = ({ navigation }) => {
   const [loading, setLoading] = useState(false);
@@ -87,6 +92,16 @@ const UserSignup = ({ navigation }) => {
           </TouchableOpacity>
         </View>
         {loading && <Loader />}
+        
+        {/* Social login icons */}
+        <View style={styles.socialLogin}>
+          <TouchableOpacity style={styles.socialIcon}>
+            <Image source={facebookIcon} style={styles.socialImage} />
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.socialIcon}>
+            <Image source={googleIcon} style={styles.socialImage} />
+          </TouchableOpacity>
+        </View>
       </ScrollView>
     </KeyboardAvoidingView>
   );
@@ -146,5 +161,17 @@ const styles = StyleSheet.create({
     marginLeft: 5,
     color: '#fff',
     textDecorationLine: 'underline',
+  },
+  socialLogin: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginTop: 20,
+  },
+  socialIcon: {
+    marginHorizontal: 10,
+  },
+  socialImage: {
+    width: 50,
+    height: 50,
   },
 });
