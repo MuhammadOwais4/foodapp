@@ -4,8 +4,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { removeTocart, clearCart } from '../../Redux/reducer';
 import deleteIcon from '../../images/delete.png';
 import { useNavigation } from '@react-navigation/native';
-
-// Import your item images
 import Beef_burger from '../../images/Beef_burgur.png';
 import Chicken_burger from '../../images/Chicken_burger.png';
 import Veggie_burger from '../../images/Veggie_burger.png';
