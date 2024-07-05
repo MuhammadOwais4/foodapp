@@ -6,11 +6,11 @@ import Chicken_burger from '../../../images/Chicken_burger.png';
 import Veggie_burger from '../../../images/Veggie_burger.png';
 import AcharGosht from '../../../images/Achar-Gosht.png';
 import Daalchawal from '../../../images/Daalchawal.png';
+import editIcon from '../../../images/edit.png'; // Import your edit icon here
 
 const Checkout = ({ navigation }) => {
   const cart = useSelector((state) => state.user.cart);
   const address = useSelector((state) => state.user.address);
-
 
   const getImageSource = (itemName) => {
     switch (itemName) {
@@ -55,11 +55,11 @@ const Checkout = ({ navigation }) => {
         <Text>{`${address.street}, ${address.city}, ${address.pincode}`}</Text>
         <Text>Contact: {address.contact}</Text>
 
-
         <TouchableOpacity
           style={styles.button}
           onPress={() => navigation.navigate('Address')}
         >
+          <Image source={editIcon} style={styles.buttonIcon} />
           <Text style={styles.buttonText}>Edit Address</Text>
         </TouchableOpacity>
 
@@ -132,15 +132,22 @@ const styles = StyleSheet.create({
   },
   button: {
     backgroundColor: '#1C1C1E',
+    flexDirection: 'row',
+    alignItems: 'center',
     paddingVertical: 12,
     paddingHorizontal: 24,
     borderRadius: 8,
-    alignItems: 'center',
   },
   buttonText: {
     color: '#fff',
     fontSize: 16,
     fontWeight: 'bold',
+    marginLeft: 10, 
+  },
+  buttonIcon: {
+    width: 20, 
+    height: 20,
+    tintColor: '#fff',
   },
 });
 
