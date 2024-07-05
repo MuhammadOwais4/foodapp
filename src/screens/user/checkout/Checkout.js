@@ -1,155 +1,147 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
-import { connect } from 'react-redux';
-import { selectAddress, payNow } from '../../../Redux/reducer'; 
+import { View, Text, StyleSheet, Image, TouchableOpacity, FlatList } from 'react-native';
+import { useSelector } from 'react-redux';
+import Beef_burger from '../../../images/Beef_burgur.png';
+import Chicken_burger from '../../../images/Chicken_burger.png';
+import Veggie_burger from '../../../images/Veggie_burger.png';
+import AcharGosht from '../../../images/Achar-Gosht.png';
+import Daalchawal from '../../../images/Daalchawal.png';
 
-const Checkout = ({ navigation, selectedAddress, selectAddress, payNow }) => {
+const Checkout = ({ navigation }) => {
+  const cart = useSelector((state) => state.user.cart);
+  const address = useSelector((state) => state.user.address);
+
+
+  const getImageSource = (itemName) => {
+    switch (itemName) {
+      case 'Beef Burger':
+        return Beef_burger;
+      case 'Chicken Burger':
+        return Chicken_burger;
+      case 'Veggie Burger':
+        return Veggie_burger;
+      case 'Achar Gosht':
+        return AcharGosht;
+      case 'Daal-chawal':
+        return Daalchawal;
+      default:
+        return null;
+    }
+  };
+
+  const renderItem = ({ item }) => (
+    <View style={styles.itemView}>
+      <Image source={getImageSource(item.name)} style={styles.itemImage} />
+      <View style={styles.itemDetails}>
+        <Text style={styles.itemName}>{item.name}</Text>
+        <Text style={styles.itemDescription}>{item.description}</Text>
+        <Text style={styles.itemPrice}>{item.price}</Text>
+        <Text style={styles.itemQuantity}>Quantity: {item.quantity}</Text>
+      </View>
+    </View>
+  );
+
   return (
     <View style={styles.container}>
-      <View style={styles.itemView}>
-        <Image
-          source={{ uri: 'https://via.placeholder.com/90' }}
-          style={styles.itemImage}
-        />
-        <View style={styles.nameView}>
-          <Text style={styles.nameText}>Item Name</Text>
-          <Text style={styles.descText}>Item Description</Text>
-          <View style={styles.priceView}>
-            <Text style={styles.priceText}>$10</Text>
-            <Text style={styles.discountText}>$120</Text>
-          </View>
-        </View>
-        <Text style={styles.nameText}>1</Text>
-      </View>
+      <FlatList
+        data={cart}
+        renderItem={renderItem}
+        keyExtractor={(item) => item.id.toString()}
+        contentContainerStyle={styles.flatListContainer}
+      />
+      
+      <View style={styles.addressView}>
+        <Text style={styles.addressText}>Delivery Address:</Text>
+        <Text>{`${address.street}, ${address.city}, ${address.pincode}`}</Text>
+        <Text>Contact: {address.contact}</Text>
 
-      <View style={styles.totalView}>
-        <Text style={styles.nameText}>Total</Text>
-        <Text style={styles.nameText}>$100</Text>
-      </View>
 
-      <View style={styles.totalView}>
-        <Text style={styles.nameText}>Selected Address</Text>
-        <Text
-          style={styles.editAddress}
-          onPress={() => {
-            navigation.navigate('Address');
-          }}
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => navigation.navigate('Address')}
         >
-          Change Address
-        </Text>
+          <Text style={styles.buttonText}>Edit Address</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={[styles.button, { marginTop: 10, backgroundColor: '#FBBF24' }]}
+          onPress={() => navigation.navigate('Payment')}
+        >
+          <Text style={styles.buttonText}>Proceed to Payment</Text>
+        </TouchableOpacity>
       </View>
-
-      <Text style={styles.nameText}>{selectedAddress}</Text>
-
-      <TouchableOpacity
-        disabled={selectedAddress === 'No Selected Address'}
-        style={[
-          styles.checkoutBtn,
-          {
-            backgroundColor:
-              selectedAddress === 'No Selected Address' ? '#DADADA' : 'green',
-          },
-        ]}
-        onPress={() => {
-          payNow(); 
-          navigation.navigate('Payment');
-        }} 
-      >
-        <Text style={{ color: '#fff', fontSize: 18, fontWeight: '600' }}>
-          Pay Now
-        </Text>
-      </TouchableOpacity>
     </View>
   );
 };
 
-const mapStateToProps = (state) => ({
-  selectedAddress: state.user.selectedAddress, 
-});
-
-const mapDispatchToProps = {
-  selectAddress,
-  payNow,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Checkout);
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#fff',
+    padding: 16,
+  },
+  flatListContainer: {
+    paddingBottom: 16,
   },
   itemView: {
     flexDirection: 'row',
-    width: '90%',
-    alignSelf: 'center',
-    backgroundColor: '#fff',
-    elevation: 4,
-    marginTop: 10,
-    borderRadius: 10,
-    height: 100,
-    marginBottom: 10,
     alignItems: 'center',
-    padding: 10,
+    backgroundColor: '#f0f0f0',
+    borderRadius: 10,
+    marginBottom: 12,
+    padding: 12,
   },
   itemImage: {
-    width: 90,
-    height: 90,
+    width: 80,
+    height: 80,
     borderRadius: 10,
-    marginRight: 10,
+    marginRight: 12,
   },
-  nameView: {
+  itemDetails: {
     flex: 1,
   },
-  priceView: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginTop: 5,
-  },
-  nameText: {
+  itemName: {
     fontSize: 18,
-    fontWeight: '700',
+    fontWeight: 'bold',
   },
-  descText: {
+  itemDescription: {
     fontSize: 14,
-    fontWeight: '600',
-    color: '#6b6b6b',
+    color: '#666',
   },
-  priceText: {
-    fontSize: 18,
-    color: 'green',
-    fontWeight: '700',
-  },
-  discountText: {
-    fontSize: 17,
-    fontWeight: '600',
-    textDecorationLine: 'line-through',
-    marginLeft: 5,
-    color: '#6b6b6b',
-  },
-  totalView: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    paddingHorizontal: 20,
-    alignItems: 'center',
-    borderTopWidth: 0.5,
-    borderTopColor: '#8e8e8e',
-    marginTop: 20,
-    height: 50,
-  },
-  editAddress: {
-    color: '#2F62D1',
+  itemPrice: {
     fontSize: 16,
-    fontWeight: '600',
-    textDecorationLine: 'underline',
+    fontWeight: 'bold',
+    marginTop: 8,
   },
-  checkoutBtn: {
-    width: '90%',
-    height: 50,
+  itemQuantity: {
+    fontSize: 14,
+    color: '#888',
+    marginTop: 4,
+  },
+  addressView: {
+    marginTop: 20,
+    borderWidth: 1,
+    borderColor: '#ccc',
+    padding: 12,
     borderRadius: 10,
-    alignSelf: 'center',
-    justifyContent: 'center',
+  },
+  addressText: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginBottom: 8,
+  },
+  button: {
+    backgroundColor: '#1C1C1E',
+    paddingVertical: 12,
+    paddingHorizontal: 24,
+    borderRadius: 8,
     alignItems: 'center',
-    marginBottom: 20,
+  },
+  buttonText: {
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: 'bold',
   },
 });
+
+export default Checkout;

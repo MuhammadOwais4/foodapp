@@ -13,7 +13,6 @@ import Home from './screens/user/Home';
 import Cart from './screens/user/Cart';
 import Checkout from './screens/user/checkout/Checkout';
 import Address from './screens/user/checkout/Address';
-import AddNewAddress from './screens/user/checkout/AddNewAddress';
 import OrderStatus from './screens/user/checkout/OrderStatus';
 import OrderHistory from './screens/OrderHistory';
 import Payment from './screens/Payment'
@@ -80,11 +79,6 @@ const AppNavigator = () => {
         <Stack.Screen
           component={Address}
           name="Address"
-          options={{headerShown: true}}
-        />
-        <Stack.Screen
-          component={AddNewAddress}
-          name="AddNewAddress"
           options={{headerShown: true}}
         />
         <Stack.Screen

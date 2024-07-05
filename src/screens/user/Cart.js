@@ -1,27 +1,19 @@
 import React from 'react';
-import { View, Text, StyleSheet, FlatList, Image, TouchableOpacity, Dimensions, Alert } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { View, Text, StyleSheet, FlatList, Image, TouchableOpacity, Alert } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
-import { removeTocart } from '../../Redux/reducer';
+import { removeTocart, clearCart } from '../../Redux/reducer';
 import deleteIcon from '../../images/delete.png';
+import { useNavigation } from '@react-navigation/native';
+
+// Import your item images
 import Beef_burger from '../../images/Beef_burgur.png';
 import Chicken_burger from '../../images/Chicken_burger.png';
 import Veggie_burger from '../../images/Veggie_burger.png';
 import AcharGosht from '../../images/Achar-Gosht.png';
 import Daalchawal from '../../images/Daalchawal.png';
 
-
-const images = {
-  'Beef Burger': Beef_burger,
-  'Chicken Burger': Chicken_burger,
-  'Veggie Burger': Veggie_burger,
-  'Achar Gosht': AcharGosht,
-  'Daal chawal': Daalchawal, 
-};
-
 const Cart = () => {
   const navigation = useNavigation();
-  const { height, width } = Dimensions.get('screen');
   const cart = useSelector((state) => state.user.cart);
   const dispatch = useDispatch();
 
@@ -46,16 +38,49 @@ const Cart = () => {
     dispatch(removeTocart(itemId));
   };
 
+  const handleClearCart = () => {
+    dispatch(clearCart());
+  };
+
+  const handleIncreaseQuantity = (itemId) => {
+    dispatch({ type: 'increaseQuantity', payload: itemId });
+  };
+
+  const handleDecreaseQuantity = (itemId) => {
+    dispatch({ type: 'decreaseQuantity', payload: itemId });
+  };
+
   const renderItem = ({ item }) => {
+    let imageUrl = '';
+    if (item.name === 'Beef Burger') {
+      imageUrl = Beef_burger;
+    } else if (item.name === 'Chicken Burger') {
+      imageUrl = Chicken_burger;
+    } else if (item.name === 'Veggie Burger') {
+      imageUrl = Veggie_burger;
+    } else if (item.name === 'Achar Gosht') {
+      imageUrl = AcharGosht;
+    } else if (item.name === 'Daal-chawal') {
+      imageUrl = Daalchawal;
+    }
+
     return (
       <View style={styles.itemView}>
-        <Image source={images[item.name]} style={styles.itemImage} />
+        <Image source={imageUrl} style={styles.itemImage} />
         <View style={styles.nameView}>
           <Text style={styles.nameText}>{item.name}</Text>
           <Text style={styles.descText}>{item.description}</Text>
           <View style={styles.priceView}>
             <Text style={styles.priceText}>{item.price}</Text>
-            {item.discount && <Text style={styles.discountText}>{item.discount}</Text>}
+            <View style={styles.quantityContainer}>
+              <TouchableOpacity onPress={() => handleDecreaseQuantity(item.id)} style={styles.quantityButton}>
+                <Text style={styles.quantityButtonText}>-</Text>
+              </TouchableOpacity>
+              <Text style={styles.quantityText}>{item.quantity}</Text>
+              <TouchableOpacity onPress={() => handleIncreaseQuantity(item.id)} style={styles.quantityButton}>
+                <Text style={styles.quantityButtonText}>+</Text>
+              </TouchableOpacity>
+            </View>
           </View>
         </View>
         <TouchableOpacity style={styles.deleteIcon} onPress={() => handleDeleteItem(item.id)}>
@@ -68,16 +93,20 @@ const Cart = () => {
   return (
     <View style={styles.container}>
       {cart.length > 0 ? (
-        <FlatList
-          data={cart}
-          renderItem={renderItem}
-          keyExtractor={(item) => item.id.toString()}
-          contentContainerStyle={styles.scrollViewContent}
-        />
+        <>
+          <FlatList
+            data={cart}
+            renderItem={renderItem}
+            keyExtractor={(item) => item.id.toString()}
+            contentContainerStyle={styles.scrollViewContent}
+          />
+          <TouchableOpacity style={[styles.button, styles.clearButton]} onPress={handleClearCart}>
+            <Text style={styles.buttonText}>Clear Cart</Text>
+          </TouchableOpacity>
+        </>
       ) : (
         <View style={styles.emptyCartView}>
           <Text style={styles.emptyCartText}>Your cart is empty</Text>
-
         </View>
       )}
       {cart.length > 0 && (
@@ -105,7 +134,7 @@ const styles = StyleSheet.create({
     elevation: 4,
     marginTop: 10,
     borderRadius: 10,
-    height: 100,
+    height: 120, // Adjusted height for better display
     marginBottom: 10,
     alignItems: 'center',
     position: 'relative',
@@ -137,11 +166,26 @@ const styles = StyleSheet.create({
     color: 'green',
     fontWeight: '700',
   },
-  discountText: {
-    fontSize: 17,
-    fontWeight: '600',
-    textDecorationLine: 'line-through',
-    marginLeft: 5,
+  quantityContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 5,
+  },
+  quantityButton: {
+    borderWidth: 1,
+    borderColor: '#ccc',
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+    borderRadius: 5,
+  },
+  quantityButtonText: {
+    fontSize: 18,
+    color: '#555',
+  },
+  quantityText: {
+    fontSize: 16,
+    marginLeft: 10,
+    marginRight: 10,
   },
   deleteIcon: {
     position: 'absolute',
@@ -173,6 +217,9 @@ const styles = StyleSheet.create({
   },
   confirmButton: {
     backgroundColor: 'green',
+  },
+  clearButton: {
+    backgroundColor: 'red',
   },
   buttonText: {
     color: '#fff',

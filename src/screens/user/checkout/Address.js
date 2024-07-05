@@ -1,46 +1,61 @@
-import React from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  TextInput,
-  TouchableOpacity,
-} from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
+import { useDispatch } from 'react-redux';
+import { setAddress } from '../../../Redux/reducer';
 
-const AddNewAddress = ({ navigation }) => {
+const Address = ({ navigation }) => {
+  const dispatch = useDispatch();
+  const [street, setStreet] = useState('');
+  const [city, setCity] = useState('');
+  const [pincode, setPincode] = useState('');
+  const [contact, setContact] = useState('');
+
+  const saveAddress = () => {
+    const address = {
+      street,
+      city,
+      pincode,
+      contact,
+    };
+    dispatch(setAddress(address));
+    navigation.navigate('Checkout');
+  };
+
   return (
     <View style={styles.container}>
       <TextInput
         style={styles.inputStyle}
         placeholder={'Enter Street'}
+        value={street}
+        onChangeText={setStreet}
       />
       <TextInput
         style={styles.inputStyle}
-        placeholder={'Enter City '}
+        placeholder={'Enter City'}
+        value={city}
+        onChangeText={setCity}
       />
       <TextInput
         style={styles.inputStyle}
         placeholder={'Enter Pincode'}
+        value={pincode}
+        onChangeText={setPincode}
         keyboardType="number-pad"
       />
       <TextInput
         style={styles.inputStyle}
-        placeholder={'Enter Contact '}
+        placeholder={'Enter Contact'}
+        value={contact}
+        onChangeText={setContact}
         maxLength={12}
         keyboardType="number-pad"
       />
-      <TouchableOpacity
-        style={styles.addNewBtn}
-        onPress={() => {
-          navigation.navigate('Checkout');
-        }}>
+      <TouchableOpacity style={styles.addNewBtn} onPress={saveAddress}>
         <Text style={styles.btnText}>Save Address</Text>
       </TouchableOpacity>
     </View>
   );
 };
-
-export default AddNewAddress;
 
 const styles = StyleSheet.create({
   container: {
@@ -74,3 +89,5 @@ const styles = StyleSheet.create({
     fontWeight: '600',
   },
 });
+
+export default Address;

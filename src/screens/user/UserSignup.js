@@ -20,7 +20,6 @@ const UserSignup = ({ navigation }) => {
     email: 'owais@gmail.com',
     phone: '1234567890',
     password: '123456',
-    confirmPassword: '123456',
     gender: 'Male',
   });
 
@@ -81,6 +80,12 @@ const UserSignup = ({ navigation }) => {
         >
           <Text style={styles.btnText}>Sign up</Text>
         </TouchableOpacity>
+        <View style={styles.loginContainer}>
+          <Text style={styles.loginText}>Have an account?</Text>
+          <TouchableOpacity onPress={() => navigation.navigate('UserLogin')}>
+            <Text style={[styles.loginText, styles.loginLink]}>Login</Text>
+          </TouchableOpacity>
+        </View>
         {loading && <Loader />}
       </ScrollView>
     </KeyboardAvoidingView>
@@ -128,5 +133,18 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: '600',
     color: '#fff',
+  },
+  loginContainer: {
+    flexDirection: 'row',
+    marginTop: 20,
+  },
+  loginText: {
+    fontSize: 16,
+    color: '#666',
+  },
+  loginLink: {
+    marginLeft: 5,
+    color: '#fff',
+    textDecorationLine: 'underline',
   },
 });
