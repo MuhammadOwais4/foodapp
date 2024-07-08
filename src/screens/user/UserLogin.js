@@ -18,6 +18,11 @@ const UserLogin = ({ navigation }) => {
   const [selectedLang, setSelectedLang] = useState(0);
   const [loading, setLoading] = useState(false);
 
+  const [LoginData, setLoginData] = useState({
+    email: 'owais@gmail.com',
+    password: '123456',
+  });
+
   const handleLogin = () => {
     setLoading(true);
     setTimeout(() => {
@@ -44,10 +49,15 @@ const UserLogin = ({ navigation }) => {
       <TextInput
         style={styles.inputStyle}
         placeholder={'Enter Email'}
+        value={LoginData.email}
+        onChangeText={(text) => setLoginData({ ...LoginData, email: text })}
       />
       <TextInput
         style={styles.inputStyle}
         placeholder={'Enter Password'}
+        secureTextEntry={true}
+        value={LoginData.password}
+        onChangeText={(text) => setLoginData({ ...LoginData, password: text })}
       />
       <TouchableOpacity
         style={styles.loginBtn}

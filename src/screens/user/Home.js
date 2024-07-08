@@ -2,7 +2,7 @@ import {View, Text, StyleSheet, TouchableOpacity, Image} from 'react-native';
 import React, {useState} from 'react';
 import Main from './BottomNavigation/QuickBite';
 import Search from './BottomNavigation/Search';
-import Wishlist from './BottomNavigation/Wishlist';
+import OrderTracking from './BottomNavigation/OrderTracking';
 import OrderHistory from '../OrderHistory';
 import Profile from './BottomNavigation/Profile';
 
@@ -15,7 +15,7 @@ const Home = () => {
       ) : selectedTab == 1 ? (
         <Search />
       ) : selectedTab == 2 ? (
-        <Wishlist />
+        <OrderTracking />
       ) : selectedTab == 3 ? (
         <OrderHistory />
       ) : (
@@ -58,8 +58,8 @@ const Home = () => {
           <Image
             source={
               selectedTab == 2
-                ? require('../../images/wish_fill.png')
-                : require('../../images/wish.png')
+                ? require('../../images/biker-rider.png')
+                : require('../../images/Save.png')
             }
             style={styles.bottomIcon}
           />
@@ -104,7 +104,7 @@ const styles = StyleSheet.create({
   },
   bottomTabView: {
     flexDirection: 'row',
-    height: 60,
+    height: 44,
     width: '100%',
     backgroundColor: '#fff',
     justifyContent: 'space-evenly',
@@ -115,7 +115,7 @@ const styles = StyleSheet.create({
   },
   bottomTab: {
     width: '20%',
-    height: '100%',
+    height: '80%',
     justifyContent: 'center',
     alignItems: 'center',
   },

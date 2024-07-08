@@ -6,7 +6,7 @@ import Chicken_burger from '../../../images/Chicken_burger.png';
 import Veggie_burger from '../../../images/Veggie_burger.png';
 import AcharGosht from '../../../images/Achar-Gosht.png';
 import Daalchawal from '../../../images/Daalchawal.png';
-import editIcon from '../../../images/edit.png'; // Import your edit icon here
+import editIcon from '../../../images/edit.png'; 
 
 const Checkout = ({ navigation }) => {
   const cart = useSelector((state) => state.user.cart);

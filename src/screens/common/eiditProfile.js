@@ -3,30 +3,38 @@ import { View, Text, ScrollView, Image, StyleSheet, Dimensions, TouchableOpacity
 import rncStyles from 'rncstyles';
 import Header from './Header';
 import { useNavigation } from '@react-navigation/native';
-import Icon from 'react-native-vector-icons/FontAwesome6';
 import DocumentPicker from 'react-native-document-picker';
+import profile from '../../images/profile_fill.png';
+import cameraIcon from '../../images/carmea.png'; 
+
 const { width } = Dimensions.get('window');
 
-const EiditProfile = () => {
+const EditProfile = () => {
   const navigation = useNavigation();
 
   const [fullName, setFullName] = useState('Muhammad Owais');
   const [email, setEmail] = useState('muhammadowais@gmail.com');
   const [gender, setGender] = useState('Male');
   const [contact, setContact] = useState('+92 0321 2484 162');
-  const [document, setdoucment] = useState('');
+  const [document, setDocument] = useState('');
 
-  const  handleimagechane=  async ()=>{
-    const doc = await DocumentPicker.pick({
-      type: [DocumentPicker.types.images],
-    });
-    const selectedFile = doc?.[0];
-    setdoucment(selectedFile.uri)
-    console.log(selectedFile);
-  
+  const handleImageChange = async () => {
+    try {
+      const doc = await DocumentPicker.pick({
+        type: [DocumentPicker.types.images],
+      });
+      const selectedFile = doc?.[0];
+      setDocument(selectedFile.uri);
+      console.log(selectedFile);
+    } catch (error) {
+      if (DocumentPicker.isCancel(error)) {
+        console.log('User cancelled image selection');
+      } else {
+        console.error('Error picking image', error);
+      }
+    }
+  };
 
-
-  }
   return (
     <>
       <View style={styles.container}>
@@ -40,12 +48,13 @@ const EiditProfile = () => {
                 <Image
                   resizeMode='contain'
                   style={styles.profileImage}
-                  source={{
-                    uri: document ?? 'content://com.android.providers.downloads.documents/document/raw%3A%2Fstorage%2Femulated%2F0%2FDownload%2Fimages%20(1).jpeg'
-                  }}
+                  source={document ? { uri: document } : profile}
                 />
-                <TouchableOpacity style={styles.iconContainer} onPress={handleimagechane}>
-                  <Icon name="camera-retro" size={25} color={'white'} />
+                <TouchableOpacity style={styles.iconContainer} onPress={handleImageChange}>
+                  <Image
+                    source={cameraIcon} 
+                    style={styles.cameraIcon} 
+                  />
                 </TouchableOpacity>
               </View>
             </View>
@@ -75,7 +84,7 @@ const EiditProfile = () => {
       </View>
     </>
   );
-}
+};
 
 const renderInfoItem = (label, value, setValue) => (
   <View style={styles.infoItem}>
@@ -117,6 +126,10 @@ const styles = StyleSheet.create({
     borderRadius: 12.5,
     padding: 5,
   },
+  cameraIcon: {
+    width: 25,
+    height: 25,
+  },
   infoSection: {
     paddingVertical: 20,
   },
@@ -144,4 +157,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default EiditProfile;
+export default EditProfile;

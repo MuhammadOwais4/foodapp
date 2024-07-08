@@ -26,7 +26,7 @@ const Cart = () => {
         },
         {
           text: "Confirm",
-          onPress: () => navigation.navigate('OrderStatus')
+          onPress: () => navigation.navigate('OrderHistory')
         }
       ]
     );
@@ -40,13 +40,11 @@ const Cart = () => {
     dispatch(clearCart());
   };
 
-  const handleIncreaseQuantity = (itemId) => {
-    dispatch({ type: 'increaseQuantity', payload: itemId });
+  const handle = (itemId) => {
+    dispatch({ type: '', payload: itemId });
   };
 
-  const handleDecreaseQuantity = (itemId) => {
-    dispatch({ type: 'decreaseQuantity', payload: itemId });
-  };
+  
 
   const renderItem = ({ item }) => {
     let imageUrl = '';
@@ -71,14 +69,7 @@ const Cart = () => {
           <View style={styles.priceView}>
             <Text style={styles.priceText}>{item.price}</Text>
             <View style={styles.quantityContainer}>
-              <TouchableOpacity onPress={() => handleDecreaseQuantity(item.id)} style={styles.quantityButton}>
-                <Text style={styles.quantityButtonText}>-</Text>
-              </TouchableOpacity>
-              <Text style={styles.quantityText}>{item.quantity}</Text>
-              <TouchableOpacity onPress={() => handleIncreaseQuantity(item.id)} style={styles.quantityButton}>
-                <Text style={styles.quantityButtonText}>+</Text>
-              </TouchableOpacity>
-            </View>
+                    </View>
           </View>
         </View>
         <TouchableOpacity style={styles.deleteIcon} onPress={() => handleDeleteItem(item.id)}>
@@ -132,7 +123,7 @@ const styles = StyleSheet.create({
     elevation: 4,
     marginTop: 10,
     borderRadius: 10,
-    height: 120, // Adjusted height for better display
+    height: 120, 
     marginBottom: 10,
     alignItems: 'center',
     position: 'relative',
@@ -224,6 +215,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
   },
+  
 });
 
 export default Cart;

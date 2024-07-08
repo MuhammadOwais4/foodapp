@@ -1,14 +1,13 @@
 
 import { View, Text, StyleSheet, FlatList, Image } from 'react-native';
 import React, { Profiler, useEffect, useState } from 'react';
-import Header from '../../common/Header';
 
-const Wishlist = () => {
+const OrderTracking = () => {
 
   return (
-    <View style={styles.container}>
-      <Header title={'Wishlist'} />
-    </View>
+<>
+
+</>
   );
 };
 
@@ -53,4 +52,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Wishlist;
+export default OrderTracking;

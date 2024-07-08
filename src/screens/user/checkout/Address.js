@@ -7,18 +7,16 @@ const Address = ({ navigation }) => {
   const dispatch = useDispatch();
   const [street, setStreet] = useState('');
   const [city, setCity] = useState('');
-  const [pincode, setPincode] = useState('');
   const [contact, setContact] = useState('');
 
   const saveAddress = () => {
     const address = {
       street,
       city,
-      pincode,
       contact,
     };
     dispatch(setAddress(address));
-    navigation.navigate('Checkout');
+    navigation.navigate('Payment');
   };
 
   return (
@@ -34,13 +32,6 @@ const Address = ({ navigation }) => {
         placeholder={'Enter City'}
         value={city}
         onChangeText={setCity}
-      />
-      <TextInput
-        style={styles.inputStyle}
-        placeholder={'Enter Pincode'}
-        value={pincode}
-        onChangeText={setPincode}
-        keyboardType="number-pad"
       />
       <TextInput
         style={styles.inputStyle}

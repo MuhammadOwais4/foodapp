@@ -160,7 +160,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 10,
   },
   totalAmountContainer: {
-    padding: 20,
+    padding: 50,
     backgroundColor: '#fff',
     alignItems: 'center',
   },
