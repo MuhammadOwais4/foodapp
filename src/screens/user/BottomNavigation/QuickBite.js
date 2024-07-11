@@ -529,7 +529,7 @@ const styles = StyleSheet.create({
     textDecorationLine: 'line-through',
   },
   addToCartBtn: {
-    backgroundColor: 'green',
+    backgroundColor: '#E98B07',
     paddingHorizontal: 12,
     paddingVertical: 8,
     borderRadius: 8,
@@ -537,7 +537,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   addToCartText: {
-    color: '#E98B07',
+    color: '#fff',
     fontWeight: '600',
     fontSize: 14,
   },
