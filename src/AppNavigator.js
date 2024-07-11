@@ -20,6 +20,8 @@ import EiditProfile from './screens/common/eiditProfile.js';
 import Profile from './screens/user/BottomNavigation/Profile.js';
 import QuickBite from './screens/user/BottomNavigation/QuickBite.js';
 import OrderTracking from './screens/user/BottomNavigation/OrderTracking.js';
+import intro1 from './screens/intro1.js';
+import MyCarousel from './screens/Carousel .js';
 
 
 
@@ -34,10 +36,21 @@ const AppNavigator = () => {
           options={{headerShown: false}}
         />
         <Stack.Screen
+          component={intro1}
+          name="intro1"
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          component={MyCarousel}
+          name="MyCarousel"
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
           component={Login}
           name="Login"
           options={{headerShown: false}}
         />
+
         <Stack.Screen
           component={Dashboard}
           name="Dashboard"

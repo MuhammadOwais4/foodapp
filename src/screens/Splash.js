@@ -14,7 +14,7 @@ const Splash = ({navigation}) => {
     if (email !== null) {
       navigation.navigate('Home');
     } else {
-      navigation.navigate('SelectLogin');
+      navigation.navigate('intro1');
     }
   };
   return (
