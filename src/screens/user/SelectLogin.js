@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
     fontWeight: '700',
   },
   btn: {
-    backgroundColor: 'purple',
+    backgroundColor: '#E98B07',
     height: 50,
     width: '90%',
     borderRadius: 10,

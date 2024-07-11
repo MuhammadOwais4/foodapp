@@ -136,7 +136,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   signUpBtn: {
-    backgroundColor: 'orange',
+    backgroundColor: '#E98B07',
     width: '90%',
     height: 50,
     borderRadius: 10,
