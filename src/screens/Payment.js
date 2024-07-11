@@ -43,16 +43,22 @@ const Payment = () => {
           <Image source={require('../images/mastercard.png')} style={styles.paymentMethodIcon} />
         </TouchableOpacity>
         <TouchableOpacity 
+          style={[styles.paymentMethodButton, selectedPaymentMethod === 'jazzcash' && styles.selectedMethod]}
+          onPress={() => setSelectedPaymentMethod('jazzcash')}
+        >
+          <Image source={require('../images/jazzcash.png')} style={styles.paymentMethodIcon} />
+        </TouchableOpacity>
+        <TouchableOpacity 
           style={[styles.paymentMethodButton, selectedPaymentMethod === 'paypal' && styles.selectedMethod]}
           onPress={() => setSelectedPaymentMethod('paypal')}
         >
           <Image source={require('../images/Paypal.png')} style={styles.paymentMethodIcon} />
         </TouchableOpacity>
         <TouchableOpacity 
-          style={[styles.paymentMethodButton, selectedPaymentMethod === 'applepay' && styles.selectedMethod]}
-          onPress={() => setSelectedPaymentMethod('applepay')}
+          style={[styles.paymentMethodButton, selectedPaymentMethod === 'easyPasia' && styles.selectedMethod]}
+          onPress={() => setSelectedPaymentMethod('easyPasia')}
         >
-          <Image source={require('../images/applepay.png')} style={styles.paymentMethodIcon} />
+          <Image source={require('../images/easyPasia.png')} style={styles.paymentMethodIcon} />
         </TouchableOpacity>
       </View>
 

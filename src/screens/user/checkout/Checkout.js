@@ -5,7 +5,7 @@ import Beef_burger from '../../../images/Beef_burgur.png';
 import Chicken_burger from '../../../images/Chicken_burger.png';
 import Veggie_burger from '../../../images/Veggie_burger.png';
 import AcharGosht from '../../../images/Achar-Gosht.png';
-import Daalchawal from '../../../images/Daalchawal.png';
+import Daalchawal from '../../../images/Daal-chawal.png';
 import editIcon from '../../../images/edit.png'; 
 
 const Checkout = ({ navigation }) => {

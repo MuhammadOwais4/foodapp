@@ -1,4 +1,4 @@
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet, Image} from 'react-native';
 import React, {useEffect} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -19,6 +19,7 @@ const Splash = ({navigation}) => {
   };
   return (
     <View style={styles.container}>
+      <Image source={require('../images/logo.png')} />
       <Text style={styles.logo}>Quick-Bite</Text>
     </View>
   );
@@ -34,6 +35,6 @@ const styles = StyleSheet.create({
   logo: {
     fontSize: 30,
     fontWeight: '800',
-    color: 'red',
+    color: '#E98B07',
   },
 });

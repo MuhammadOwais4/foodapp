@@ -1,3 +1,5 @@
+// userSlice.js
+
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
@@ -18,7 +20,7 @@ const userSlice = createSlice({
     removeTocart: (state, action) => {
       state.cart = state.cart.filter((item) => item.id !== action.payload);
     },
-    AddTocart: (state, action) => {
+    AddToCart: (state, action) => {
       const existingItem = state.cart.find((item) => item.id === action.payload.id);
       if (existingItem) {
         existingItem.quantity += 1;
@@ -44,5 +46,5 @@ const userSlice = createSlice({
   },
 });
 
-export const { AddTocart, removeTocart, clearCart, setAddress, logoutUser, completeOrder } = userSlice.actions;
+export const { AddToCart, removeTocart, clearCart, setAddress, logoutUser, completeOrder } = userSlice.actions;
 export default userSlice.reducer;

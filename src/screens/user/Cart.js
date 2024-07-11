@@ -8,7 +8,10 @@ import Beef_burger from '../../images/Beef_burgur.png';
 import Chicken_burger from '../../images/Chicken_burger.png';
 import Veggie_burger from '../../images/Veggie_burger.png';
 import AcharGosht from '../../images/Achar-Gosht.png';
-import Daalchawal from '../../images/Daalchawal.png';
+import Daalchawal from '../../images/Daal-chawal.png';
+import ChowMein from '../../images/Chow-Mein.png';
+import ChickenSchezwan from '../../images/Chicken-Schezwan.png';
+import HotandSourSoup from '../../images/Hot-and-Sour-Soup.png';
 
 const Cart = () => {
   const navigation = useNavigation();
@@ -40,36 +43,45 @@ const Cart = () => {
     dispatch(clearCart());
   };
 
-  const handle = (itemId) => {
-    dispatch({ type: '', payload: itemId });
-  };
-
-  
-
   const renderItem = ({ item }) => {
     let imageUrl = '';
-    if (item.name === 'Beef Burger') {
-      imageUrl = Beef_burger;
-    } else if (item.name === 'Chicken Burger') {
-      imageUrl = Chicken_burger;
-    } else if (item.name === 'Veggie Burger') {
-      imageUrl = Veggie_burger;
-    } else if (item.name === 'Achar Gosht') {
-      imageUrl = AcharGosht;
-    } else if (item.name === 'Daal-chawal') {
-      imageUrl = Daalchawal;
+    switch(item.name) {
+      case 'Beef Burger':
+        imageUrl = Beef_burger;
+        break;
+      case 'Chicken Burger':
+        imageUrl = Chicken_burger;
+        break;
+      case 'Veggie Burger':
+        imageUrl = Veggie_burger;
+        break;
+      case 'Achar Gosht':
+        imageUrl = AcharGosht;
+        break;
+      case 'Daal-chawal':
+        imageUrl = Daalchawal;
+        break;
+      case 'Chow Mein':
+        imageUrl = ChowMein;
+        break;
+      case 'Chicken Schezwan':
+        imageUrl = ChickenSchezwan;
+        break;
+      case 'Hot and Sour Soup':
+        imageUrl = HotandSourSoup;
+        break;
+      default:
+        imageUrl = null;
     }
 
     return (
       <View style={styles.itemView}>
-        <Image source={imageUrl} style={styles.itemImage} />
+        {imageUrl && <Image source={imageUrl} style={styles.itemImage} />}
         <View style={styles.nameView}>
           <Text style={styles.nameText}>{item.name}</Text>
           <Text style={styles.descText}>{item.description}</Text>
           <View style={styles.priceView}>
             <Text style={styles.priceText}>{item.price}</Text>
-            <View style={styles.quantityContainer}>
-                    </View>
           </View>
         </View>
         <TouchableOpacity style={styles.deleteIcon} onPress={() => handleDeleteItem(item.id)}>
@@ -154,27 +166,6 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: 'green',
     fontWeight: '700',
-  },
-  quantityContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginTop: 5,
-  },
-  quantityButton: {
-    borderWidth: 1,
-    borderColor: '#ccc',
-    paddingHorizontal: 10,
-    paddingVertical: 5,
-    borderRadius: 5,
-  },
-  quantityButtonText: {
-    fontSize: 18,
-    color: '#555',
-  },
-  quantityText: {
-    fontSize: 16,
-    marginLeft: 10,
-    marginRight: 10,
   },
   deleteIcon: {
     position: 'absolute',
