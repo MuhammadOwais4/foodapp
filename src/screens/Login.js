@@ -7,6 +7,9 @@ import {
   TouchableOpacity,
 } from 'react-native';
 
+
+
+
 const Login = ({ navigation }) => {
 
   return (
@@ -22,10 +25,7 @@ const Login = ({ navigation }) => {
         placeholder={'Enter Password '}
       />
       <TouchableOpacity
-        style={styles.loginBtn}
-        onPress={() => {
-        }}
-      >
+        style={styles.loginBtn}  onPress={() => navigation.navigate('UserLogin')}>
         <Text style={styles.btnText}>Login</Text>
       </TouchableOpacity>
     </View>

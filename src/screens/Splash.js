@@ -19,7 +19,7 @@ const Splash = ({navigation}) => {
   };
   return (
     <View style={styles.container}>
-      <Image source={require('../images/logo.png')} />
+      <Image source={require('../images/Logo.png')} />
       <Text style={styles.logo}>Quick-Bite</Text>
     </View>
   );

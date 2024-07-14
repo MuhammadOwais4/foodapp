@@ -22,6 +22,8 @@ import QuickBite from './screens/user/BottomNavigation/QuickBite.js';
 import OrderTracking from './screens/user/BottomNavigation/OrderTracking.js';
 import intro1 from './screens/intro1.js';
 import MyCarousel from './screens/Carousel .js';
+import Showitem from './screens/ShowItem.js'
+
 
 
 
@@ -43,6 +45,11 @@ const AppNavigator = () => {
         <Stack.Screen
           component={MyCarousel}
           name="MyCarousel"
+          options={{headerShown: false}}
+        />
+         <Stack.Screen
+          component={Showitem}
+          name="Showitem"
           options={{headerShown: false}}
         />
         <Stack.Screen

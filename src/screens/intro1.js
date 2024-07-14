@@ -47,7 +47,7 @@ const Intro1 = () => {
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={styles.skipButton} onPress={() => navigation.navigate('SelectLogin')}>
+      <TouchableOpacity style={styles.skipButton} onPress={() => navigation.navigate('UserSignup')}>
         <Text style={styles.skipButtonText}>Skip</Text>
       </TouchableOpacity>
       <Carousel
