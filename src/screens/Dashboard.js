@@ -1,9 +1,9 @@
 import {View, Text, StyleSheet, TouchableOpacity, Image} from 'react-native';
 import React, {useState} from 'react';
-
-import Transactions from '../tabs/Transactions';
+import Add from '../Seller/AddItem.js'
+import Transactions from '../Seller/Transactionshistory.js';
 import Orders from './OrderHistory';
-import Notifications from '../tabs/Notifications';
+import Profile from '../Seller/Sellerprofile.js';
 import EditItem from './EditItem.js';
 
 const Dashboard = () => {
@@ -19,7 +19,7 @@ const Dashboard = () => {
       ) : selectedTab == 3 ? (
         <Orders />
       ) : (
-        <Notifications />
+        <Profile />
       )}
       <View style={styles.bottomView}>
         <TouchableOpacity
@@ -28,7 +28,7 @@ const Dashboard = () => {
             setSelectedTab(0);
           }}>
           <Image
-            source={require('../images/items.png')}
+            source={require('../images/home.png')}
             style={[
               styles.bottomTabImg,
               {tintColor: selectedTab == 0 ? 'red' : 'black'},
@@ -68,23 +68,10 @@ const Dashboard = () => {
         <TouchableOpacity
           style={styles.bottomTab}
           onPress={() => {
-            setSelectedTab(3);
-          }}>
-          <Image
-            source={require('../images/orders.png')}
-            style={[
-              styles.bottomTabImg,
-              {tintColor: selectedTab == 3 ? 'red' : 'black'},
-            ]}
-          />
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.bottomTab}
-          onPress={() => {
             setSelectedTab(4);
           }}>
           <Image
-            source={require('../images/notification.png')}
+            source={require('../images/profile_fill.png')}
             style={[
               styles.bottomTabImg,
               {tintColor: selectedTab == 4 ? 'red' : 'black'},

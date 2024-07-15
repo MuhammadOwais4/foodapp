@@ -3,7 +3,7 @@ import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import {NavigationContainer, StackRouter} from '@react-navigation/native';
 import Splash from './screens/Splash';
-import Login from './screens/Login';
+import Login from './Seller/Login.js';
 import Dashboard from './screens/Dashboard';
 import EditItem from './screens/EditItem.js';
 import SelectLogin from './screens/user/SelectLogin';
@@ -23,6 +23,10 @@ import OrderTracking from './screens/user/BottomNavigation/OrderTracking.js';
 import intro1 from './screens/intro1.js';
 import MyCarousel from './screens/Carousel .js';
 import Showitem from './screens/ShowItem.js'
+import SellerProfile from './Seller/Sellerprofile.js';
+import RestaurantProfileScreen from './Seller/Restaurant.js'
+import Homes from './Seller/Homes.js';
+import Additem from './Seller/AddItem.js';
 
 
 
@@ -83,6 +87,34 @@ const AppNavigator = () => {
           name="UserSignup"
           options={{headerShown: false}}
         />
+        <Stack.Screen
+          component={RestaurantProfileScreen}
+          name="RestaurantProfileScreen"
+          options={{headerShown: false}}
+        />
+        
+        <Stack.Screen
+          component={SellerProfile}
+            name="SellerProfile"
+            options={{headerShown: false}}
+        />
+        <Stack.Screen
+          component={Homes}
+            name="Homes"
+              options={{headerShown: false}}
+              />
+              
+        <Stack.Screen
+          component={Additem}
+          name="AddItem"
+          options={{headerShown: false}}
+          />
+          
+        <Stack.Screen
+          component={SellerProfile}
+          name="SellerProfile1"
+          options={{headerShown: false}}
+          />
         <Stack.Screen
           component={Home}
           name="Home"

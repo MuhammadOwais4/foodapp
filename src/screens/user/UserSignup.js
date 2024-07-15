@@ -13,7 +13,7 @@ import {
 } from 'react-native';
 import Loader from '../common/Loader';
 
-// Import your Facebook and Google icons
+
 import facebookIcon from '../../images/facebook.png';
 import googleIcon from '../../images/google.png';
 

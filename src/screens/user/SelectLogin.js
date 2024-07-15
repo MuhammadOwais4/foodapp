@@ -41,7 +41,7 @@ const SelectLogin = ({navigation}) => {
         onPress={() => {
           navigation.navigate('Login');
         }}>
-        <Text style={styles.btnText}>Admin Login</Text>
+        <Text style={styles.btnText}>Seller Login</Text>
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.btn}

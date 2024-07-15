@@ -14,7 +14,7 @@ const Login = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Admin Login</Text>
+      <Text style={styles.title}>seller Login</Text>
       <TextInput
         style={styles.inputStyle}
         placeholder={'Enter Email Id'}
@@ -25,7 +25,7 @@ const Login = ({ navigation }) => {
         placeholder={'Enter Password '}
       />
       <TouchableOpacity
-        style={styles.loginBtn}  onPress={() => navigation.navigate('UserLogin')}>
+        style={styles.loginBtn}  onPress={() => navigation.navigate('RestaurantProfileScreen')}>
         <Text style={styles.btnText}>Login</Text>
       </TouchableOpacity>
     </View>
