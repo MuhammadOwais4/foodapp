@@ -6,6 +6,7 @@ import {
   TextInput,
   TouchableOpacity,
   Image,
+  useColorScheme,
 } from 'react-native';
 
 import Loader from '../common/Loader';
@@ -17,6 +18,7 @@ import googleIcon from '../../images/google.png';
 const UserLogin = ({ navigation }) => {
   const [selectedLang, setSelectedLang] = useState(0);
   const [loading, setLoading] = useState(false);
+  const scheme = useColorScheme(); 
 
   const [LoginData, setLoginData] = useState({
     email: 'owais@gmail.com',
@@ -33,7 +35,7 @@ const UserLogin = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>
+      <Text style={[styles.title, scheme === 'dark' ? styles.textDark : styles.textLight]}>
         {selectedLang === 0
           ? translation[1].English
           : selectedLang === 1
@@ -47,14 +49,16 @@ const UserLogin = ({ navigation }) => {
           : null}
       </Text>
       <TextInput
-        style={styles.inputStyle}
+        style={[styles.inputStyle, scheme === 'dark' ? styles.inputDark : styles.inputLight]}
         placeholder={'Enter Email'}
+        placeholderTextColor={scheme === 'dark' ? '#ccc' : '#888'}
         value={LoginData.email}
         onChangeText={(text) => setLoginData({ ...LoginData, email: text })}
       />
       <TextInput
-        style={styles.inputStyle}
+        style={[styles.inputStyle, scheme === 'dark' ? styles.inputDark : styles.inputLight]}
         placeholder={'Enter Password'}
+        placeholderTextColor={scheme === 'dark' ? '#ccc' : '#888'}
         secureTextEntry={true}
         value={LoginData.password}
         onChangeText={(text) => setLoginData({ ...LoginData, password: text })}
@@ -63,10 +67,10 @@ const UserLogin = ({ navigation }) => {
         style={styles.loginBtn}
         onPress={handleLogin}
       >
-        <Text style={styles.btnText}>Login</Text>
+        <Text style={[styles.btnText, scheme === 'dark' ? styles.textDark : styles.textLight]}>Login</Text>
       </TouchableOpacity>
       <Text
-        style={styles.createNewAccount}
+        style={[styles.createNewAccount, scheme === 'dark' ? styles.textDark : styles.textLight]}
         onPress={() => {
           navigation.navigate('UserSignup');
         }}
@@ -96,7 +100,6 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 20,
     fontWeight: '800',
-    color: '#000',
     marginTop: 100,
     alignSelf: 'center',
   },
@@ -122,7 +125,6 @@ const styles = StyleSheet.create({
   btnText: {
     fontSize: 18,
     fontWeight: '600',
-    color: '#000',
   },
   createNewAccount: {
     fontSize: 18,
@@ -142,5 +144,19 @@ const styles = StyleSheet.create({
   socialImage: {
     width: 50,
     height: 50,
+  },
+  textLight: {
+    color: '#000', 
+  },
+  textDark: {
+    color: '#fff',
+  },
+  inputLight: {
+    color: '#000', 
+    borderColor: '#888', 
+  },
+  inputDark: {
+    color: '#fff', 
+    borderColor: '#ccc', 
   },
 });

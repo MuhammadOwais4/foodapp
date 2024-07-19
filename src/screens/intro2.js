@@ -1,8 +1,8 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity, useColorScheme } from 'react-native';
 
-const Intro1 = ({ navigation }) => {
-  const imageSource = require('../images/FreshMeals.png'); 
+const Intro2 = ({ navigation }) => {
+  const imageSource = require('../images/rider.png'); 
   const chevronSource = require('../images/chevron-right.png');
   const scheme = useColorScheme(); 
 
@@ -15,9 +15,9 @@ const Intro1 = ({ navigation }) => {
         />
       </View>
       <View style={styles.textContainer}>
-        <Text style={[styles.title, scheme === 'dark' ? styles.textDark : styles.textLight]}>Find Food You Love</Text>
+        <Text style={[styles.title, scheme === 'dark' ? styles.textDark : styles.textLight]}>Fast Delivery</Text>
         <Text style={[styles.description, scheme === 'dark' ? styles.textDark : styles.textLight]}>
-          Indulge in the exquisite flavors of our culinary masterpiece  a symphony of succulent grilled chicken, nestled on a bed of perfectly seasoned quinoa and adorned with a medley of vibrant, roasted vegetables.
+        The dish is artfully drizzled with a velvety balsamic glaze, creating a harmonious blend of sweet and savory notes that dance on your palate. Each  bite is a journey through a culinary wonderland, where freshness meets finesse
         </Text>
       </View>
       <View style={styles.pagination}>
@@ -26,7 +26,7 @@ const Intro1 = ({ navigation }) => {
         <TouchableOpacity onPress={() => navigation.navigate('SelectLogin')}>
           <Text style={[styles.skip, scheme === 'dark' ? styles.textDark : styles.textLight]}>Skip</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.nextButton} onPress={() => navigation.navigate('intro2')}>
+        <TouchableOpacity style={styles.nextButton} onPress={() => navigation.navigate('intro3')}>
           <Image source={chevronSource} style={styles.chevronIcon} />
         </TouchableOpacity>
       </View>
@@ -99,4 +99,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Intro1;
+export default Intro2;

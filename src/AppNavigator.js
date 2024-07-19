@@ -28,6 +28,8 @@ import RestaurantProfileScreen from './Seller/Restaurant.js'
 import Homes from './Seller/Homes.js';
 import Additem from './Seller/AddItem.js';
 import Products from './Seller/Products.js';
+import Intro3 from './screens/intro3.js';
+import Intro2 from './screens/intro2.js';
 
 
 
@@ -46,7 +48,19 @@ const AppNavigator = () => {
           component={intro1}
           name="intro1"
           options={{headerShown: false}}
+        /
+        >
+        <Stack.Screen
+          component={Intro2}
+          name="intro2"
+          options={{headerShown: false}}
         />
+        <Stack.Screen
+          component={Intro3}
+          name="intro3"
+          options={{headerShown: false}}
+        />
+
         <Stack.Screen
           component={MyCarousel}
           name="MyCarousel"

@@ -1,29 +1,31 @@
-import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
-import React, {useState} from 'react';
+import { View, Text, StyleSheet, TouchableOpacity, useColorScheme } from 'react-native';
+import React, { useState } from 'react';
 import LanguageModal from '../common/LangaugeModal';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {translation} from '../../utils';
+import { translation } from '../../utils';
 import Loader from '../common/Loader';
 
-
-const SelectLogin = ({navigation}) => {
+const SelectLogin = ({ navigation }) => {
   const [langModalVisible, setLangModalVisible] = useState(false);
   const [selectedLang, setSelectedLang] = useState(0);
   const [loading, setLoading] = useState(false);
+  const scheme = useColorScheme(); 
+
   const handleLogin = () => {
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
       navigation.navigate('UserLogin');
-    }, 5000); 
+    }, 5000);
   };
 
   const saveSelectedLang = async index => {
     await AsyncStorage.setItem('LANG', index + '');
   };
+
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>
+      <Text style={[styles.title, scheme === 'dark' ? styles.textDark : styles.textLight]}>
         {selectedLang == 0
           ? translation[0].English
           : selectedLang == 1
@@ -51,11 +53,11 @@ const SelectLogin = ({navigation}) => {
         <Text style={styles.btnText}>User Signup</Text>
       </TouchableOpacity>
       <TouchableOpacity
-        style={styles.selectLangaugeBtn}
+        style={styles.selectLanguageBtn}
         onPress={() => {
           setLangModalVisible(!langModalVisible);
         }}>
-        <Text>Select Language</Text>
+        <Text style={scheme === 'dark' ? styles.textDark : styles.textLight}>Select Language</Text>
       </TouchableOpacity>
       <LanguageModal
         langModalVisible={langModalVisible}
@@ -65,12 +67,13 @@ const SelectLogin = ({navigation}) => {
           saveSelectedLang(x);
         }}
       />
-       {loading && <Loader />}
+      {loading && <Loader />}
     </View>
   );
 };
 
 export default SelectLogin;
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -95,7 +98,7 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontWeight: '600',
   },
-  selectLangaugeBtn: {
+  selectLanguageBtn: {
     width: '50%',
     height: 50,
     borderWidth: 0.2,
@@ -106,5 +109,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: 20,
+  },
+  textLight: {
+    color: '#000', 
+  },
+  textDark: {
+    color: '#fff', 
   },
 });

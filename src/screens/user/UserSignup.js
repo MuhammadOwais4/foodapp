@@ -5,20 +5,20 @@ import {
   StyleSheet,
   TextInput,
   TouchableOpacity,
-  Alert,
   KeyboardAvoidingView,
   ScrollView,
   Platform,
   Image,
+  useColorScheme,
 } from 'react-native';
 import Loader from '../common/Loader';
-
 
 import facebookIcon from '../../images/facebook.png';
 import googleIcon from '../../images/google.png';
 
 const UserSignup = ({ navigation }) => {
   const [loading, setLoading] = useState(false);
+  const scheme = useColorScheme(); // Detect light or dark mode
 
   const [signUpData, setSignUpData] = useState({
     username: 'owais',
@@ -44,51 +44,67 @@ const UserSignup = ({ navigation }) => {
   };
 
   return (
-    <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : null}>
+    <KeyboardAvoidingView
+      style={styles.container}
+      behavior={Platform.OS === 'ios' ? 'padding' : null}
+    >
       <ScrollView contentContainerStyle={styles.scrollContainer}>
-        <Text style={styles.title}>Sign up</Text>
+        <Text style={[styles.title, scheme === 'dark' ? styles.textDark : styles.textLight]}>
+          Sign up
+        </Text>
         <TextInput
-          style={styles.inputStyle}
+          style={[styles.inputStyle, scheme === 'dark' ? styles.inputDark : styles.inputLight]}
           placeholder={'Enter Name'}
+          placeholderTextColor={scheme === 'dark' ? '#aaa' : '#888'}
           value={signUpData.username}
           onChangeText={(value) => handleInputChange('username', value)}
         />
         <TextInput
-          style={styles.inputStyle}
+          style={[styles.inputStyle, scheme === 'dark' ? styles.inputDark : styles.inputLight]}
           placeholder={'Enter Email'}
+          placeholderTextColor={scheme === 'dark' ? '#aaa' : '#888'}
           value={signUpData.email}
           onChangeText={(value) => handleInputChange('email', value)}
         />
         <TextInput
-          style={styles.inputStyle}
+          style={[styles.inputStyle, scheme === 'dark' ? styles.inputDark : styles.inputLight]}
           placeholder={'Enter Mobile'}
+          placeholderTextColor={scheme === 'dark' ? '#aaa' : '#888'}
           value={signUpData.phone}
           keyboardType={'number-pad'}
           onChangeText={(value) => handleInputChange('phone', value)}
         />
         <TextInput
-          style={styles.inputStyle}
+          style={[styles.inputStyle, scheme === 'dark' ? styles.inputDark : styles.inputLight]}
           placeholder={'Enter Password'}
-          value={signUpData.password}
+          placeholderTextColor={scheme === 'dark' ? '#aaa' : '#888'}
           secureTextEntry={true}
+          value={signUpData.password}
           onChangeText={(value) => handleInputChange('password', value)}
         />
         <TextInput
-          style={styles.inputStyle}
+          style={[styles.inputStyle, scheme === 'dark' ? styles.inputDark : styles.inputLight]}
           placeholder={'Gender'}
+          placeholderTextColor={scheme === 'dark' ? '#aaa' : '#888'}
           value={signUpData.gender}
           onChangeText={(value) => handleInputChange('gender', value)}
         />
         <TouchableOpacity
-          style={styles.signUpBtn}
+          style={[styles.signUpBtn, scheme === 'dark' ? styles.btnDark : styles.btnLight]}
           onPress={handleSignUp}
         >
-          <Text style={styles.btnText}>Sign up</Text>
+          <Text style={[styles.btnText, scheme === 'dark' ? styles.textDark : styles.textLight]}>
+            Sign up
+          </Text>
         </TouchableOpacity>
         <View style={styles.loginContainer}>
-          <Text style={styles.loginText}>Have an account?</Text>
+          <Text style={[styles.loginText, scheme === 'dark' ? styles.textDark : styles.textLight]}>
+            Have an account?
+          </Text>
           <TouchableOpacity onPress={() => navigation.navigate('UserLogin')}>
-            <Text style={[styles.loginText, styles.loginLink]}>Login</Text>
+            <Text style={[styles.loginText, scheme === 'dark' ? styles.textDark : styles.textLight, styles.loginLink]}>
+              Login
+            </Text>
           </TouchableOpacity>
         </View>
         {loading && <Loader />}
@@ -112,7 +128,6 @@ export default UserSignup;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
   },
   scrollContainer: {
     flexGrow: 1,
@@ -123,7 +138,6 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 24,
     fontWeight: 'bold',
-    color: '#000',
     marginBottom: 40,
   },
   inputStyle: {
@@ -132,11 +146,9 @@ const styles = StyleSheet.create({
     width: '90%',
     marginVertical: 10,
     borderWidth: 1,
-    borderColor: '#ccc',
     borderRadius: 10,
   },
   signUpBtn: {
-    backgroundColor: '#E98B07',
     width: '90%',
     height: 50,
     borderRadius: 10,
@@ -147,7 +159,6 @@ const styles = StyleSheet.create({
   btnText: {
     fontSize: 18,
     fontWeight: '600',
-    color: '#fff',
   },
   loginContainer: {
     flexDirection: 'row',
@@ -155,11 +166,9 @@ const styles = StyleSheet.create({
   },
   loginText: {
     fontSize: 16,
-    color: '#666',
   },
   loginLink: {
     marginLeft: 5,
-    color: '#fff',
     textDecorationLine: 'underline',
   },
   socialLogin: {
@@ -173,5 +182,27 @@ const styles = StyleSheet.create({
   socialImage: {
     width: 50,
     height: 50,
+  },
+
+  textLight: {
+    color: '#000', 
+  },
+  inputLight: {
+    color: '#000', 
+    borderColor: '#ccc', 
+  },
+  btnLight: {
+    backgroundColor: '#E98B07',
+  },
+  
+  textDark: {
+    color: '#fff', 
+  },
+  inputDark: {
+    color: '#fff', 
+    borderColor: '#444', 
+  },
+  btnDark: {
+    backgroundColor: '#E98B07', 
   },
 });
