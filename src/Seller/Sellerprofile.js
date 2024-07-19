@@ -19,18 +19,17 @@ const SellerProfile = ({ navigation }) => {
           <Text style={styles.profileEmail}>matildabrown@mail.com</Text>
         </View>
       </View>
-      <TouchableOpacity style={styles.listItem} onPress={() => navigation.navigate('Orders')}>
-        <Text style={styles.listText}>MyProducts</Text>
-        <Icon name="chevron-right" size={16} color="#000" />
+      <TouchableOpacity style={styles.listItem} onPress={() => navigation && navigation.navigate('Products')}>
+        <Text style={styles.listText}>My Products</Text>
+        <Image source={require('../images/chevron-right.png')} style={styles.chevron} /> 
       </TouchableOpacity>
-      <TouchableOpacity style={styles.listItem} onPress={() => navigation.navigate('Addresses')}>
+      <TouchableOpacity style={styles.listItem} onPress={() => navigation && navigation.navigate('AddItem')}>
         <Text style={styles.listText}>Add Products</Text>
-      
-        <Icon name="chevron-right" size={16} color="#000" />
+        <Image source={require('../images/chevron-right.png')} style={styles.chevron} /> 
       </TouchableOpacity>
-      <TouchableOpacity style={styles.listItem} onPress={() => navigation.navigate('PaymentMethods')}>
+      <TouchableOpacity style={styles.listItem} onPress={() => navigation && navigation.navigate('EditItem')}>
         <Text style={styles.listText}>Edit Products</Text>
-        <Icon name="chevron-right" size={16} color="#000" />
+        <Image source={require('../images/chevron-right.png')} style={styles.chevron} /> 
       </TouchableOpacity>
     </ScrollView>
   );
@@ -84,9 +83,10 @@ const styles = StyleSheet.create({
   listText: {
     fontSize: 16,
   },
-  listSubText: {
-    fontSize: 12,
-    color: '#999',
+  chevron: {
+    width: 16,
+    height: 16,
+    tintColor: '#000', // Adjust as needed
   },
 });
 

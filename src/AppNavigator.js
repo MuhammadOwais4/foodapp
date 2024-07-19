@@ -27,6 +27,7 @@ import SellerProfile from './Seller/Sellerprofile.js';
 import RestaurantProfileScreen from './Seller/Restaurant.js'
 import Homes from './Seller/Homes.js';
 import Additem from './Seller/AddItem.js';
+import Products from './Seller/Products.js';
 
 
 
@@ -61,7 +62,11 @@ const AppNavigator = () => {
           name="Login"
           options={{headerShown: false}}
         />
-
+        <Stack.Screen
+          component={Products}
+            name="Products"
+              options={{headerShown: false}}
+            />
         <Stack.Screen
           component={Dashboard}
           name="Dashboard"
