@@ -7,7 +7,7 @@ const Intro3 = ({ navigation }) => {
   const scheme = useColorScheme(); 
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, scheme === 'dark' ? styles.containerDark : styles.containerLight]}>
       <View style={styles.imageContainer}>
         <Image
           source={imageSource} 
@@ -15,9 +15,9 @@ const Intro3 = ({ navigation }) => {
         />
       </View>
       <View style={styles.textContainer}>
-        <Text style={[styles.title, scheme === 'dark' ? styles.textDark : styles.textLight]}>Welcome to QuickBit </Text>
+        <Text style={[styles.title, scheme === 'dark' ? styles.textDark : styles.textLight]}>Welcome to Quick-Bite</Text>
         <Text style={[styles.description, scheme === 'dark' ? styles.textDark : styles.textLight]}>
-        Elevate your dining experience with this gastronomic delight that transcends ordinary meals into extraordinary feasts!
+          Elevate your dining experience with this gastronomic delight that transcends ordinary meals into extraordinary feasts!
         </Text>
       </View>
       <View style={styles.pagination}>
@@ -37,9 +37,14 @@ const Intro3 = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
     padding: 20,
     justifyContent: 'space-between',
+  },
+  containerLight: {
+    backgroundColor: '#fff',
+  },
+  containerDark: {
+    backgroundColor: '#000',
   },
   imageContainer: {
     alignItems: 'center',

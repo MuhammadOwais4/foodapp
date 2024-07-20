@@ -7,7 +7,7 @@ const Intro2 = ({ navigation }) => {
   const scheme = useColorScheme(); 
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, scheme === 'dark' ? styles.containerDark : styles.containerLight]}>
       <View style={styles.imageContainer}>
         <Image
           source={imageSource} 
@@ -17,7 +17,7 @@ const Intro2 = ({ navigation }) => {
       <View style={styles.textContainer}>
         <Text style={[styles.title, scheme === 'dark' ? styles.textDark : styles.textLight]}>Fast Delivery</Text>
         <Text style={[styles.description, scheme === 'dark' ? styles.textDark : styles.textLight]}>
-        The dish is artfully drizzled with a velvety balsamic glaze, creating a harmonious blend of sweet and savory notes that dance on your palate. Each  bite is a journey through a culinary wonderland, where freshness meets finesse
+          The dish is artfully drizzled with a velvety balsamic glaze, creating a harmonious blend of sweet and savory notes that dance on your palate. Each bite is a journey through a culinary wonderland, where freshness meets finesse.
         </Text>
       </View>
       <View style={styles.pagination}>
@@ -37,9 +37,14 @@ const Intro2 = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
     padding: 20,
     justifyContent: 'space-between',
+  },
+  containerLight: {
+    backgroundColor: '#fff',
+  },
+  containerDark: {
+    backgroundColor: '#000',
   },
   imageContainer: {
     alignItems: 'center',
@@ -62,7 +67,6 @@ const styles = StyleSheet.create({
   description: {
     fontSize: 16,
     textAlign: 'center',
-    color: '#666',
   },
   pagination: {
     flexDirection: 'row',
@@ -92,10 +96,10 @@ const styles = StyleSheet.create({
     tintColor: '#fff',
   },
   textLight: {
-    color: '#000', 
+    color: '#000',
   },
   textDark: {
-    color: '#fff', 
+    color: '#fff',
   },
 });
 

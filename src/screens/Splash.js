@@ -22,7 +22,7 @@ const Splash = ({ navigation }) => {
   };
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, scheme === 'dark' ? styles.containerDark : styles.containerLight]}>
       <Image source={require('../images/Logo.png')} />
       <Text style={[styles.logo, scheme === 'dark' ? styles.logoDark : styles.logoLight]}>Quick-Bite</Text>
     </View>
@@ -35,9 +35,16 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  containerLight: {
+    backgroundColor: '#fff',
+  },
+  containerDark: {
+    backgroundColor: '#000',
+  },
   logo: {
     fontSize: 30,
     fontWeight: '800',
+    marginTop: 20,
   },
   logoLight: {
     color: '#E98B07',
