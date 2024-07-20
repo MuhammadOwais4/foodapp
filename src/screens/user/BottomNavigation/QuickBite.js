@@ -1,6 +1,5 @@
-
 import React from 'react';
-import { View, Text, StyleSheet, ScrollView, Image, TouchableOpacity, FlatList } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, Image, TouchableOpacity, FlatList, useColorScheme } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
 import { AddToCart } from '../../../Redux/reducer'; 
@@ -10,6 +9,7 @@ const QuickBite = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.user.cart);
+  const scheme = useColorScheme();
 
   const fastFoodData = [
     {
@@ -77,40 +77,7 @@ const QuickBite = () => {
       image: require('../../../images/Zinger-burgur.png'), 
     },
   ];
-const BeveragesData=[
-  {
-    id: '1',
-    name: 'Roti',
-    description: 'Delicious Roti',
-    price: '$10',
-    discount: '$12',
-    image: require('../../../images/Roti.png'),
-  },
-  {
-    id: '2',
-    name: 'Paratha',
-    description: 'Delicious Paratha',
-    price: '$10',
-    discount: '$12',
-    image: require('../../../images/Paratha.png'),
-  },
-  {
-    id: '3',
-    name: 'pepsi',
-    description: 'pepsi',
-    price: '$10',
-    discount: '$12',
-    image: require('../../../images/pepsi.png'),
-  },
-  {
-    id: '4',
-    name: '7up',
-    description: '7up',
-    price: '$10',
-    discount: '$12',
-    image: require('../../../images/7up.png'),
-  },
-]
+
   const pakistaniFoodData = [
     {
       id: '1',
@@ -325,221 +292,180 @@ const BeveragesData=[
     },
     {
       id: '16',
-      name: 'Chicken Manchurian',
-      description: 'Classic Sweet and Sour Pork',
+      name: 'Orange Chicken',
+      description: 'Classic Sweet and Sour Orange Chicken',
       price: '$14',
       discount: '$16',
-      image: require('../../../images/Chicken-Manchurian.png'),
+      image: require('../../../images/Orange-Chicken.png'),
     },
     {
       id: '17',
-      name: 'Prawn Tempura',
-      description: 'Spicy Prawn Tempura',
+      name: 'Pan Fried Noodles',
+      description: 'Pan Fried Noodles',
       price: '$12',
       discount: '$15',
-      image: require('../../../images/Prawn-Tempura.png'),
+      image: require('../../../images/Pan-Fried-Noodles.png'),
     },
     {
       id: '18',
-      name: 'Sweet and-Sour Chicken',
-      description: 'Sweet and Sour Chicken',
+      name: 'Pepper Steak',
+      description: 'Pepper Steak',
       price: '$15',
       discount: '$18',
-      image: require('../../../images/Chicken-Corn-Soup.png'),
+      image: require('../../../images/Pepper-Steak.png'),
     },
     {
       id: '19',
-      name: 'Szechuan Chicken',
-      description: 'Sweet Szechuan Chicken',
+      name: 'Pot stickers',
+      description: 'Classic Sweet Pot stickers',
+      price: '$14',
+      discount: '$16',
+      image: require('../../../images/Pot-stickers.png'),
+    },
+    {
+      id: '20',
+      name: 'Shrimp Lo Mein',
+      description: 'Shrimp Lo Mein',
+      price: '$12',
+      discount: '$15',
+      image: require('../../../images/Shrimp-Lo-Mein.png'),
+    },
+    {
+      id: '21',
+      name: 'Szechuan Prawns',
+      description: 'Szechuan Prawns',
       price: '$15',
       discount: '$18',
-      image: require('../../../images/Szechuan-Chicken.png'),
+      image: require('../../../images/Szechuan-Prawns.png'),
+    },
+    {
+      id: '22',
+      name: 'Sweet-and-Sour-Chicken',
+      description: 'Classic Sweet Sweet-and-Sour-Chicken',
+      price: '$14',
+      discount: '$16',
+      image: require('../../../images/Sweet-and-Sour-Chicken.png'),
+    },
+    {
+      id: '23',
+      name: 'Wonton Soup',
+      description: 'Spicy Wonton Soup',
+      price: '$12',
+      discount: '$15',
+      image: require('../../../images/Wonton-Soup.png'),
     },
   ];
-  
-  const DessertData = [
-    {
-      id: '1',
-      name: 'Gulab jaman',
-      description: 'Sweet Gulab jaman',
-      price: '$15',
-      discount: '$18',
-      image: require('../../../images/gulab-jaman.png'),
-    },
-    {
-       id: '2',
-      name: 'Ice cream-cup',
-      description: 'Sweet Ice cream-cup',
-      price: '$15',
-      discount: '$18',
-      image: require('../../../images/Ice-cream-cup.png'),
-    },
-    {
-       id: '3',
-      name: 'kheer',
-      description: 'Sweet kheer',
-      price: '$15',
-      discount: '$18',
-      image: require('../../../images/kheer.png'),
-    },
-  {
-    id: '4',
-    name: 'Matka kulfi',
-    description: 'Sweet Matka kulfi',
-    price: '$15',
-    discount: '$18',
-    image: require('../../../images/Matka-kulfi.png'),
-  },
-
-  ]
-  const onAddToCart = (item) => {
-    console.log('Added to cart:', item);
-    dispatch(AddToCart(item));
-  };
 
   const renderItem = ({ item }) => (
-    <TouchableOpacity style={styles.itemContainer} onPress={() => onAddToCart(item)}>
-      <View style={styles.itemView}>
-        <Image source={item.image} style={styles.itemImage} />
-        <View style={styles.itemDetails}>
-          <Text style={styles.itemName}>{item.name}</Text>
-          <Text style={styles.itemDescription}>{item.description}</Text>
-          <View style={styles.itemPriceContainer}>
-            <Text style={styles.itemPrice}>{item.price}</Text>
-            <Text style={styles.itemDiscount}>{item.discount}</Text>
-          </View>
-        </View>
-        <TouchableOpacity style={styles.addToCartBtn} onPress={() => onAddToCart(item)}>
-          <Text style={styles.addToCartText}>Add To Cart</Text>
-        </TouchableOpacity>
+    <TouchableOpacity
+      style={styles.itemContainer}
+      onPress={() => navigation.navigate('Details', { item })}
+    >
+      <Image source={item.image} style={styles.itemImage} />
+      <View style={styles.itemDetails}>
+        <Text style={styles.itemName}>{item.name}</Text>
+        <Text style={styles.itemDescription}>{item.description}</Text>
+        <Text style={styles.itemPrice}>{item.price}</Text>
+        <Text style={styles.itemDiscount}>{item.discount}</Text>
       </View>
     </TouchableOpacity>
   );
 
   return (
-    <View style={styles.container}>
-      <Header
-        icon={require('../../../images/cart.png')}
-        onClickIcon={() => navigation.navigate('Cart')}
-        cartItemCount={cart.length}
-      />
-      <ScrollView style={styles.scrollView}>
+    <ScrollView style={{ ...styles.container, backgroundColor: scheme === 'dark' ? '#333333' : '#ffffff' }}>
+      <Header title="All food categories" />
+      <View style={styles.section}>
         <Text style={styles.sectionTitle}>Fast Food</Text>
         <FlatList
           data={fastFoodData}
           renderItem={renderItem}
-          keyExtractor={(item) => item.id.toString()}
-          contentContainerStyle={styles.scrollViewContent}
+          keyExtractor={(item) => item.id}
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={styles.listContainer}
         />
-        <Text style={styles.sectionTitle}>Pakistani Food</Text>
+      </View>
+      <View style={styles.section}>
+        <Text style={styles.sectionTitle}>Pakistani food</Text>
         <FlatList
           data={pakistaniFoodData}
           renderItem={renderItem}
-          keyExtractor={(item) => item.id.toString()}
-          contentContainerStyle={styles.scrollViewContent}
+          keyExtractor={(item) => item.id}
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={styles.listContainer}
         />
-        <Text style={styles.sectionTitle}>Chinese Food</Text>
+      </View>
+      <View style={styles.section}>
+        <Text style={styles.sectionTitle}>Chinese food</Text>
         <FlatList
           data={chinesefoodData}
           renderItem={renderItem}
-          keyExtractor={(item) => item.id.toString()}
-          contentContainerStyle={styles.scrollViewContent}
+          keyExtractor={(item) => item.id}
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={styles.listContainer}
         />
-         <Text style={styles.sectionTitle}>Dessert </Text>
-        <FlatList
-          data={DessertData}
-          renderItem={renderItem}
-          keyExtractor={(item) => item.id.toString()}
-          contentContainerStyle={styles.scrollViewContent}
-        />
-         <Text style={styles.sectionTitle}>Beverages </Text>
-        <FlatList
-          data={BeveragesData}
-          renderItem={renderItem}
-          keyExtractor={(item) => item.id.toString()}
-          contentContainerStyle={styles.scrollViewContent}
-        />
-      </ScrollView>
-    </View>
+      </View>
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    paddingHorizontal: 15,
   },
-  scrollView: {
-    flex: 1,
-    paddingHorizontal: 16,
-  },
-  scrollViewContent: {
-    paddingTop: 20,
+  section: {
+    marginBottom: 20,
   },
   sectionTitle: {
+    fontSize: 24,
+    fontWeight: 'bold',
     marginBottom: 10,
-    fontSize: 18,
-    fontWeight: '600',
-    color: '#333',
-    textAlign: 'center',
+    color: '#333333',
+  },
+  listContainer: {
+    paddingBottom: 10,
   },
   itemContainer: {
-    marginBottom: 16,
-  },
-  itemView: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#fff',
+    marginBottom: 15,
+    marginRight: 15,
+    backgroundColor: '#f0f0f0',
     borderRadius: 10,
-    elevation: 4,
-    padding: 12,
+    overflow: 'hidden',
+    borderColor: '#ccc',
+    borderWidth: 1,
   },
   itemImage: {
-    width: 80,
-    height: 80,
-    borderRadius: 8,
+    width: 100,
+    height: 100,
+    resizeMode: 'cover',
   },
   itemDetails: {
     flex: 1,
-    marginLeft: 12,
+    padding: 10,
   },
   itemName: {
-    fontSize: 16,
-    fontWeight: '600',
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 5,
   },
   itemDescription: {
     fontSize: 14,
-    color: '#666',
-  },
-  itemPriceContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginTop: 8,
+    marginBottom: 5,
   },
   itemPrice: {
     fontSize: 16,
-    fontWeight: '700',
-    color: 'green',
-    marginTop: 4,
+    fontWeight: 'bold',
+    color: '#333333',
+    marginBottom: 2,
   },
   itemDiscount: {
     fontSize: 14,
-    color: '#999',
-    marginLeft: 8,
-    textDecorationLine: 'line-through',
-  },
-  addToCartBtn: {
-    backgroundColor: '#E98B07',
-    paddingHorizontal: 12,
-    paddingVertical: 8,
-    borderRadius: 8,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  addToCartText: {
-    color: '#fff',
-    fontWeight: '600',
-    fontSize: 14,
+    color: '#999999',
   },
 });
 

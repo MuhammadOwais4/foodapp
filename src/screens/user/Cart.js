@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, FlatList, Image, TouchableOpacity, Alert } from 'react-native';
+import { View, Text, StyleSheet, FlatList, Image, TouchableOpacity, Alert, useColorScheme } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { removeTocart, clearCart } from '../../Redux/reducer';
 import deleteIcon from '../../images/delete.png';
@@ -17,6 +17,7 @@ const Cart = () => {
   const navigation = useNavigation();
   const cart = useSelector((state) => state.user.cart);
   const dispatch = useDispatch();
+  const scheme = useColorScheme();
 
   const handleOrderConfirmation = () => {
     Alert.alert(
@@ -75,13 +76,13 @@ const Cart = () => {
     }
 
     return (
-      <View style={styles.itemView}>
+      <View style={[styles.itemView, { backgroundColor: scheme === 'dark' ? '#333333' : '#fff' }]}>
         {imageUrl && <Image source={imageUrl} style={styles.itemImage} />}
         <View style={styles.nameView}>
-          <Text style={styles.nameText}>{item.name}</Text>
-          <Text style={styles.descText}>{item.description}</Text>
+          <Text style={[styles.nameText, { color: scheme === 'dark' ? '#fff' : '#333' }]}>{item.name}</Text>
+          <Text style={[styles.descText, { color: scheme === 'dark' ? '#ccc' : '#666' }]}>{item.description}</Text>
           <View style={styles.priceView}>
-            <Text style={styles.priceText}>{item.price}</Text>
+            <Text style={[styles.priceText, { color: 'green' }]}>{item.price}</Text>
           </View>
         </View>
         <TouchableOpacity style={styles.deleteIcon} onPress={() => handleDeleteItem(item.id)}>
@@ -92,7 +93,7 @@ const Cart = () => {
   };
   
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { backgroundColor: scheme === 'dark' ? '#333333' : '#f5f5f5' }]}>
       {cart.length > 0 ? (
         <>
           <FlatList
@@ -107,7 +108,7 @@ const Cart = () => {
         </>
       ) : (
         <View style={styles.emptyCartView}>
-          <Text style={styles.emptyCartText}>Your cart is empty</Text>
+          <Text style={[styles.emptyCartText, { color: scheme === 'dark' ? '#ccc' : '#777' }]}>Your cart is empty</Text>
         </View>
       )}
       {cart.length > 0 && (
@@ -122,7 +123,7 @@ const Cart = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f5f5f5',
+    paddingHorizontal: 15,
   },
   scrollViewContent: {
     paddingBottom: 20,
@@ -131,14 +132,14 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     width: '90%',
     alignSelf: 'center',
-    backgroundColor: '#fff',
     elevation: 4,
     marginTop: 10,
     borderRadius: 10,
-    height: 120, 
+    height: 120,
     marginBottom: 10,
     alignItems: 'center',
     position: 'relative',
+    paddingHorizontal: 10,
   },
   itemImage: {
     width: 90,
@@ -148,11 +149,12 @@ const styles = StyleSheet.create({
   },
   nameView: {
     flex: 1,
-    margin: 10,
+    marginHorizontal: 10,
   },
   priceView: {
     flexDirection: 'row',
     alignItems: 'center',
+    marginTop: 5,
   },
   nameText: {
     fontSize: 18,
@@ -164,7 +166,6 @@ const styles = StyleSheet.create({
   },
   priceText: {
     fontSize: 18,
-    color: 'green',
     fontWeight: '700',
   },
   deleteIcon: {
@@ -185,7 +186,6 @@ const styles = StyleSheet.create({
   emptyCartText: {
     fontSize: 18,
     fontWeight: '700',
-    color: '#777',
   },
   button: {
     justifyContent: 'center',
@@ -206,7 +206,6 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
   },
-  
 });
 
 export default Cart;

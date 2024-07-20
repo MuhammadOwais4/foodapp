@@ -1,16 +1,17 @@
 import React, { useState } from 'react';
-import { View, Text, ScrollView, Image, StyleSheet, Dimensions, TouchableOpacity, TextInput } from 'react-native';
+import { View, Text, ScrollView, Image, StyleSheet, Dimensions, TouchableOpacity, TextInput, useColorScheme } from 'react-native';
 import rncStyles from 'rncstyles';
 import Header from './Header';
 import { useNavigation } from '@react-navigation/native';
 import DocumentPicker from 'react-native-document-picker';
 import profile from '../../images/profile_fill.png';
-import cameraIcon from '../../images/carmea.png'; 
+import cameraIcon from '../../images/carmea.png';
 
 const { width } = Dimensions.get('window');
 
 const EditProfile = () => {
   const navigation = useNavigation();
+  const scheme = useColorScheme(); // Get the current color scheme ('dark' or 'light')
 
   const [fullName, setFullName] = useState('Muhammad Owais');
   const [email, setEmail] = useState('muhammadowais@gmail.com');
@@ -37,12 +38,12 @@ const EditProfile = () => {
 
   return (
     <>
-      <View style={styles.container}>
+      <View style={[styles.container, { backgroundColor: scheme === 'dark' ? '#000' : '#fff' }]}>
         <Header title={'Profile'} />
       </View>
       <View style={[rncStyles.h100, rncStyles.bgWhite]}>
         <View style={[rncStyles.h100, rncStyles.justifyContentCenter]}>
-          <ScrollView contentContainerStyle={styles.scrollViewContent}>
+          <ScrollView contentContainerStyle={[styles.scrollViewContent, { backgroundColor: scheme === 'dark' ? '#111' : '#f0f0f0' }]}>
             <View style={styles.profileSection}>
               <View style={styles.imageContainer}>
                 <Image
@@ -52,28 +53,28 @@ const EditProfile = () => {
                 />
                 <TouchableOpacity style={styles.iconContainer} onPress={handleImageChange}>
                   <Image
-                    source={cameraIcon} 
-                    style={styles.cameraIcon} 
+                    source={cameraIcon}
+                    style={styles.cameraIcon}
                   />
                 </TouchableOpacity>
               </View>
             </View>
 
             <View style={styles.infoSection}>
-              {renderInfoItem('Full Name', fullName, setFullName)}
-              {renderInfoItem('Email', email, setEmail)}
-              {renderInfoItem('Gender', gender, setGender)}
-              {renderInfoItem('Contact', contact, setContact)}
+              {renderInfoItem('Full Name', fullName, setFullName, scheme)}
+              {renderInfoItem('Email', email, setEmail, scheme)}
+              {renderInfoItem('Gender', gender, setGender, scheme)}
+              {renderInfoItem('Contact', contact, setContact, scheme)}
               <View style={styles.buttonContainer}>
-                <TouchableOpacity 
-                  style={[rncStyles.btnPrimary, rncStyles.rounded, styles.cancelButton]} 
-                  onPress={() => {navigation.navigate('Profile');}}
+                <TouchableOpacity
+                  style={[rncStyles.btnPrimary, rncStyles.rounded, styles.cancelButton]}
+                  onPress={() => { navigation.navigate('Profile'); }}
                 >
                   <Text style={[rncStyles.fs5, rncStyles.textWhite, rncStyles.textCenter]}>Cancel</Text>
                 </TouchableOpacity>
-                <TouchableOpacity 
-                  style={[rncStyles.btnPrimary, rncStyles.rounded, styles.saveButton]} 
-                  onPress={() => {navigation.navigate('Profile');}}
+                <TouchableOpacity
+                  style={[rncStyles.btnPrimary, rncStyles.rounded, styles.saveButton]}
+                  onPress={() => { navigation.navigate('Profile'); }}
                 >
                   <Text style={[rncStyles.fs5, rncStyles.textWhite, rncStyles.textCenter]}>Save</Text>
                 </TouchableOpacity>
@@ -86,14 +87,15 @@ const EditProfile = () => {
   );
 };
 
-const renderInfoItem = (label, value, setValue) => (
+const renderInfoItem = (label, value, setValue, scheme) => (
   <View style={styles.infoItem}>
-    <Text style={[rncStyles.textSecondary, rncStyles.textBold]}>{label}</Text>
+    <Text style={[rncStyles.textSecondary, rncStyles.textBold, { color: scheme === 'dark' ? '#ccc' : '#333' }]}>{label}</Text>
     <TextInput
-      style={[rncStyles.textPrimary, rncStyles.textBold, rncStyles.fs3]}
+      style={[rncStyles.textPrimary, rncStyles.textBold, rncStyles.fs3, { color: scheme === 'dark' ? '#fff' : '#000' }]}
       value={value}
       onChangeText={setValue}
       placeholder={label}
+      placeholderTextColor={scheme === 'dark' ? '#888' : '#666'}
     />
   </View>
 );

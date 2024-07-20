@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, TextInput, TouchableOpacity, Text, ScrollView, Image, StyleSheet, Dimensions } from 'react-native';
+import { View, Text, TouchableOpacity, ScrollView, Image, StyleSheet, Dimensions, useColorScheme } from 'react-native';
 import rncStyles from 'rncstyles';
 import Header from '../../common/Header';
 import { useNavigation } from '@react-navigation/native';
@@ -8,10 +8,11 @@ const { width } = Dimensions.get('window');
 
 const Profile = () => {
   const navigation = useNavigation();
+  const scheme = useColorScheme();
 
   return (
     <>
-      <View style={styles.container}>
+      <View style={[styles.container, { backgroundColor: scheme === 'dark' ? '#333333' : '#fff' }]}>
         <Header title={'Profile'} />
       </View>
       <View style={[rncStyles.h100, rncStyles.bgWhite]}>
@@ -30,7 +31,7 @@ const Profile = () => {
               <View style={rncStyles.flexCenter}>
                 <Text style={[rncStyles.fs1, rncStyles.textPrimary, rncStyles.textBold, rncStyles.mb1]}>Muhammad Owais</Text>
                 <Text style={[rncStyles.fs5, rncStyles.textSecondary]}>@Muhammad_owais</Text>
-                <TouchableOpacity style={[rncStyles.btnPrimary, rncStyles.mt1]}  onPress={() => {navigation.navigate('EiditProfile');}}>
+                <TouchableOpacity style={[rncStyles.btnPrimary, rncStyles.mt1]} onPress={() => { navigation.navigate('EditProfile'); }}>
                   <Text style={rncStyles.textWhite}>Edit Profile</Text>
                 </TouchableOpacity>
               </View>
@@ -42,7 +43,7 @@ const Profile = () => {
               {renderInfoItem('Gender', 'Male')}
               {renderInfoItem('Contact', '+92 0321 2484 1622')}
               <View style={styles.logoutButtonContainer}>
-                <TouchableOpacity style={[rncStyles.btnPrimary, rncStyles.rounded]} onPress={() => {navigation.navigate('UserLogin');}}>
+                <TouchableOpacity style={[rncStyles.btnPrimary, rncStyles.rounded]} onPress={() => { navigation.navigate('UserLogin'); }}>
                   <Text style={[rncStyles.fs5, rncStyles.textWhite, rncStyles.textCenter]}>Logout</Text>
                 </TouchableOpacity>
               </View>

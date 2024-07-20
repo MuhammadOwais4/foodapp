@@ -1,13 +1,13 @@
-
-import { View, Text, StyleSheet, FlatList, Image } from 'react-native';
-import React, { Profiler, useEffect, useState } from 'react';
+import React from 'react';
+import { View, Text, StyleSheet, FlatList, Image, useColorScheme } from 'react-native';
 
 const OrderTracking = () => {
+  const scheme = useColorScheme();
 
   return (
-<>
-
-</>
+    <View style={[styles.container, { backgroundColor: scheme === 'dark' ? '#333333' : '#fff' }]}>
+      {/* Your content goes here */}
+    </View>
   );
 };
 

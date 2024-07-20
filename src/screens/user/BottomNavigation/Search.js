@@ -1,8 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { View, Text, StyleSheet, FlatList, Image, TextInput, TouchableOpacity, Animated } from 'react-native';
+import { View, Text, StyleSheet, FlatList, Image, TextInput, TouchableOpacity, Animated, useColorScheme } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Header from '../../common/Header';
-import { ViewPropTypes } from 'deprecated-react-native-prop-types';
 
 // Import images
 import Beefburger from '../../../images/Beef_burgur.png';
@@ -55,6 +54,7 @@ const Search = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const navigation = useNavigation();
   const fadeAnim = useRef(new Animated.Value(0)).current;
+  const scheme = useColorScheme();
 
   useEffect(() => {
     const fetchedProducts = [
@@ -131,23 +131,24 @@ const Search = () => {
   };
 
   const renderProductItem = ({ item }) => (
-    <TouchableOpacity style={styles.orderItem} onPress={() => navigateToDetail(item)}>
+    <TouchableOpacity style={[styles.orderItem, { backgroundColor: scheme === 'dark' ? '#333333' : '#fff' }]} onPress={() => navigateToDetail(item)}>
       <View style={styles.itemView}>
         <Image source={item.image} style={styles.itemImage} />
         <View>
-          <Text style={styles.nameText}>{item.name}</Text>
-          <Text style={styles.detailsText}>{item.details}</Text>
+          <Text style={[styles.nameText, { color: scheme === 'dark' ? '#fff' : '#000' }]}>{item.name}</Text>
+          <Text style={[styles.detailsText, { color: scheme === 'dark' ? '#ccc' : '#000' }]}>{item.details}</Text>
         </View>
       </View>
     </TouchableOpacity>
   );
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { backgroundColor: scheme === 'dark' ? '#111111' : '#fff' }]}>
       <Header title={'Search'} />
       <TextInput
-        style={styles.searchInput}
+        style={[styles.searchInput, { borderColor: scheme === 'dark' ? '#555' : '#ccc', color: scheme === 'dark' ? '#fff' : '#000' }]}
         placeholder="Search products..."
+        placeholderTextColor={scheme === 'dark' ? '#888' : '#666'}
         onChangeText={text => setSearchQuery(text)}
         value={searchQuery}
       />
@@ -172,9 +173,11 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     elevation: 5,
     alignSelf: 'center',
-    backgroundColor: '#fff',
     marginTop: 20,
     marginBottom: 10,
+    padding: 10,
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   itemImage: {
     width: 50,
@@ -182,35 +185,30 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   itemView: {
-    margin: 10,
-    width: '100%',
+    marginLeft: 10,
     flexDirection: 'row',
     alignItems: 'center',
+    flex: 1,
   },
   nameText: {
     fontSize: 16,
     fontWeight: '600',
-    color: '#000',
-    marginLeft: 20,
-    marginTop: 5,
+    marginLeft: 10,
   },
   detailsText: {
     fontSize: 14,
-    color: '#000',
-    marginLeft: 20,
-    marginTop: 5,
+    marginLeft: 10,
   },
   flatListContent: {
     paddingBottom: 20,
   },
   searchInput: {
     height: 40,
-    borderColor: '#ccc',
-    borderWidth: 1,
     borderRadius: 10,
     paddingHorizontal: 10,
     marginTop: 10,
     marginHorizontal: 20,
+    borderWidth: 1,
   },
 });
 
