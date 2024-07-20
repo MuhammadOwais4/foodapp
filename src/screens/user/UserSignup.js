@@ -45,7 +45,7 @@ const UserSignup = ({ navigation }) => {
 
   return (
     <KeyboardAvoidingView
-      style={styles.container}
+      style={[styles.container, scheme === 'dark' ? styles.containerDark : styles.containerLight]}
       behavior={Platform.OS === 'ios' ? 'padding' : null}
     >
       <ScrollView contentContainerStyle={styles.scrollContainer}>
@@ -129,6 +129,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
+  containerLight: {
+    backgroundColor: '#fff',
+  },
+  containerDark: {
+    backgroundColor: '#000',
+  },
   scrollContainer: {
     flexGrow: 1,
     justifyContent: 'center',
@@ -183,26 +189,26 @@ const styles = StyleSheet.create({
     width: 50,
     height: 50,
   },
-
+  // Light mode styles
   textLight: {
-    color: '#000', 
+    color: '#000', // Black text for light mode
   },
   inputLight: {
-    color: '#000', 
-    borderColor: '#ccc', 
+    color: '#000', // Black text for light mode
+    borderColor: '#ccc', // Light border color for light mode
   },
   btnLight: {
     backgroundColor: '#E98B07',
   },
-  
+  // Dark mode styles
   textDark: {
-    color: '#fff', 
+    color: '#fff', // White text for dark mode
   },
   inputDark: {
-    color: '#fff', 
-    borderColor: '#444', 
+    color: '#fff', // White text for dark mode
+    borderColor: '#444', // Dark border color for dark mode
   },
   btnDark: {
-    backgroundColor: '#E98B07', 
+    backgroundColor: '#333', // Dark background for button in dark mode
   },
 });

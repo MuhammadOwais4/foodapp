@@ -34,7 +34,7 @@ const UserLogin = ({ navigation }) => {
   };
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, scheme === 'dark' ? styles.containerDark : styles.containerLight]}>
       <Text style={[styles.title, scheme === 'dark' ? styles.textDark : styles.textLight]}>
         {selectedLang === 0
           ? translation[1].English
@@ -64,7 +64,7 @@ const UserLogin = ({ navigation }) => {
         onChangeText={(text) => setLoginData({ ...LoginData, password: text })}
       />
       <TouchableOpacity
-        style={styles.loginBtn}
+        style={[styles.loginBtn, scheme === 'dark' ? styles.btnDark : styles.btnLight]}
         onPress={handleLogin}
       >
         <Text style={[styles.btnText, scheme === 'dark' ? styles.textDark : styles.textLight]}>Login</Text>
@@ -97,6 +97,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
+  containerLight: {
+    backgroundColor: '#fff',
+  },
+  containerDark: {
+    backgroundColor: '#000',
+  },
   title: {
     fontSize: 20,
     fontWeight: '800',
@@ -113,7 +119,6 @@ const styles = StyleSheet.create({
     width: '90%',
   },
   loginBtn: {
-    backgroundColor: '#E98B07',
     width: '90%',
     height: 50,
     alignSelf: 'center',
@@ -121,6 +126,12 @@ const styles = StyleSheet.create({
     marginTop: 50,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  btnLight: {
+    backgroundColor: '#E98B07',
+  },
+  btnDark: {
+    backgroundColor: '#333',
   },
   btnText: {
     fontSize: 18,
