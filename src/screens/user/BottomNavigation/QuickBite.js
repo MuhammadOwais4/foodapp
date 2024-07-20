@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, ScrollView, Image, TouchableOpacity, FlatList, useColorScheme } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, Image, TouchableOpacity, FlatList, useWindowDimensions, useColorScheme } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
 import { AddToCart } from '../../../Redux/reducer'; 
@@ -9,7 +9,10 @@ const QuickBite = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.user.cart);
-  const scheme = useColorScheme();
+  const { width } = useWindowDimensions();
+  const colorScheme = useColorScheme(); // Detect the current color scheme
+
+  const isDarkMode = colorScheme === 'dark';
 
   const fastFoodData = [
     {
@@ -77,7 +80,40 @@ const QuickBite = () => {
       image: require('../../../images/Zinger-burgur.png'), 
     },
   ];
-
+const BeveragesData=[
+  {
+    id: '1',
+    name: 'Roti',
+    description: 'Delicious Roti',
+    price: '$10',
+    discount: '$12',
+    image: require('../../../images/Roti.png'),
+  },
+  {
+    id: '2',
+    name: 'Paratha',
+    description: 'Delicious Paratha',
+    price: '$10',
+    discount: '$12',
+    image: require('../../../images/Paratha.png'),
+  },
+  {
+    id: '3',
+    name: 'pepsi',
+    description: 'pepsi',
+    price: '$10',
+    discount: '$12',
+    image: require('../../../images/pepsi.png'),
+  },
+  {
+    id: '4',
+    name: '7up',
+    description: '7up',
+    price: '$10',
+    discount: '$12',
+    image: require('../../../images/7up.png'),
+  },
+]
   const pakistaniFoodData = [
     {
       id: '1',
@@ -292,180 +328,254 @@ const QuickBite = () => {
     },
     {
       id: '16',
-      name: 'Orange Chicken',
-      description: 'Classic Sweet and Sour Orange Chicken',
+      name: 'Chicken Manchurian',
+      description: 'Classic Sweet and Sour Pork',
       price: '$14',
       discount: '$16',
-      image: require('../../../images/Orange-Chicken.png'),
+      image: require('../../../images/Chicken-Manchurian.png'),
     },
     {
       id: '17',
-      name: 'Pan Fried Noodles',
-      description: 'Pan Fried Noodles',
+      name: 'Prawn Tempura',
+      description: 'Spicy Prawn Tempura',
       price: '$12',
       discount: '$15',
-      image: require('../../../images/Pan-Fried-Noodles.png'),
+      image: require('../../../images/Prawn-Tempura.png'),
     },
     {
       id: '18',
-      name: 'Pepper Steak',
-      description: 'Pepper Steak',
+      name: 'Sweet and-Sour Chicken',
+      description: 'Sweet and Sour Chicken',
       price: '$15',
       discount: '$18',
-      image: require('../../../images/Pepper-Steak.png'),
+      image: require('../../../images/Chicken-Corn-Soup.png'),
     },
     {
       id: '19',
-      name: 'Pot stickers',
-      description: 'Classic Sweet Pot stickers',
-      price: '$14',
-      discount: '$16',
-      image: require('../../../images/Pot-stickers.png'),
-    },
-    {
-      id: '20',
-      name: 'Shrimp Lo Mein',
-      description: 'Shrimp Lo Mein',
-      price: '$12',
-      discount: '$15',
-      image: require('../../../images/Shrimp-Lo-Mein.png'),
-    },
-    {
-      id: '21',
-      name: 'Szechuan Prawns',
-      description: 'Szechuan Prawns',
+      name: 'Szechuan Chicken',
+      description: 'Sweet Szechuan Chicken',
       price: '$15',
       discount: '$18',
-      image: require('../../../images/Szechuan-Prawns.png'),
-    },
-    {
-      id: '22',
-      name: 'Sweet-and-Sour-Chicken',
-      description: 'Classic Sweet Sweet-and-Sour-Chicken',
-      price: '$14',
-      discount: '$16',
-      image: require('../../../images/Sweet-and-Sour-Chicken.png'),
-    },
-    {
-      id: '23',
-      name: 'Wonton Soup',
-      description: 'Spicy Wonton Soup',
-      price: '$12',
-      discount: '$15',
-      image: require('../../../images/Wonton-Soup.png'),
+      image: require('../../../images/Szechuan-Chicken.png'),
     },
   ];
+  
+  const DessertData = [
+    {
+      id: '1',
+      name: 'Gulab jaman',
+      description: 'Sweet Gulab jaman',
+      price: '$15',
+      discount: '$18',
+      image: require('../../../images/gulab-jaman.png'),
+    },
+    {
+       id: '2',
+      name: 'Ice cream-cup',
+      description: 'Sweet Ice cream-cup',
+      price: '$15',
+      discount: '$18',
+      image: require('../../../images/Ice-cream-cup.png'),
+    },
+    {
+       id: '3',
+      name: 'kheer',
+      description: 'Sweet kheer',
+      price: '$15',
+      discount: '$18',
+      image: require('../../../images/kheer.png'),
+    },
+  {
+    id: '4',
+    name: 'Matka kulfi',
+    description: 'Sweet Matka kulfi',
+    price: '$15',
+    discount: '$18',
+    image: require('../../../images/Matka-kulfi.png'),
+  },
+
+  ]
+
+  const onAddToCart = (item) => {
+    console.log('Added to cart:', item);
+    dispatch(AddToCart(item));
+  };
 
   const renderItem = ({ item }) => (
-    <TouchableOpacity
-      style={styles.itemContainer}
-      onPress={() => navigation.navigate('Details', { item })}
-    >
-      <Image source={item.image} style={styles.itemImage} />
-      <View style={styles.itemDetails}>
-        <Text style={styles.itemName}>{item.name}</Text>
-        <Text style={styles.itemDescription}>{item.description}</Text>
-        <Text style={styles.itemPrice}>{item.price}</Text>
-        <Text style={styles.itemDiscount}>{item.discount}</Text>
+    <TouchableOpacity style={[styles.itemContainer, isDarkMode && styles.itemContainerDark, { width: width * 0.9 }]} onPress={() => onAddToCart(item)}>
+      <View style={[styles.itemView, isDarkMode && styles.itemViewDark]}>
+        <Image source={item.image} style={styles.itemImage} />
+        <View style={styles.itemDetails}>
+          <Text style={[styles.itemName, isDarkMode && styles.itemNameDark]}>{item.name}</Text>
+          <Text style={[styles.itemDescription, isDarkMode && styles.itemDescriptionDark]}>{item.description}</Text>
+          <View style={styles.itemPriceContainer}>
+            <Text style={[styles.itemPrice, isDarkMode && styles.itemPriceDark]}>{item.price}</Text>
+            <Text style={[styles.itemDiscount, isDarkMode && styles.itemDiscountDark]}>{item.discount}</Text>
+          </View>
+        </View>
+        <TouchableOpacity style={[styles.addToCartBtn, isDarkMode && styles.addToCartBtnDark]} onPress={() => onAddToCart(item)}>
+          <Text style={[styles.addToCartText, isDarkMode && styles.addToCartTextDark]}>Add To Cart</Text>
+        </TouchableOpacity>
       </View>
     </TouchableOpacity>
   );
 
   return (
-    <ScrollView style={{ ...styles.container, backgroundColor: scheme === 'dark' ? '#333333' : '#ffffff' }}>
-      <Header title="All food categories" />
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Fast Food</Text>
+    <View style={[styles.container, isDarkMode && styles.containerDark]}>
+      <Header
+        icon={require('../../../images/cart.png')}
+        onClickIcon={() => navigation.navigate('Cart')}
+        cartItemCount={cart.length}
+      />
+      <ScrollView contentContainerStyle={styles.scrollViewContent}>
+        <Text style={[styles.sectionTitle, isDarkMode && styles.sectionTitleDark]}>Fast Food</Text>
         <FlatList
           data={fastFoodData}
           renderItem={renderItem}
-          keyExtractor={(item) => item.id}
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          contentContainerStyle={styles.listContainer}
+          keyExtractor={(item) => item.id.toString()}
+          contentContainerStyle={styles.scrollViewContent}
         />
-      </View>
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Pakistani food</Text>
+        <Text style={[styles.sectionTitle, isDarkMode && styles.sectionTitleDark]}>Pakistani Food</Text>
         <FlatList
           data={pakistaniFoodData}
           renderItem={renderItem}
-          keyExtractor={(item) => item.id}
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          contentContainerStyle={styles.listContainer}
+          keyExtractor={(item) => item.id.toString()}
+          contentContainerStyle={styles.scrollViewContent}
         />
-      </View>
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Chinese food</Text>
+        <Text style={[styles.sectionTitle, isDarkMode && styles.sectionTitleDark]}>Chinese Food</Text>
         <FlatList
           data={chinesefoodData}
           renderItem={renderItem}
-          keyExtractor={(item) => item.id}
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          contentContainerStyle={styles.listContainer}
+          keyExtractor={(item) => item.id.toString()}
+          contentContainerStyle={styles.scrollViewContent}
         />
-      </View>
-    </ScrollView>
+        <Text style={[styles.sectionTitle, isDarkMode && styles.sectionTitleDark]}>Dessert</Text>
+        <FlatList
+          data={DessertData}
+          renderItem={renderItem}
+          keyExtractor={(item) => item.id.toString()}
+          contentContainerStyle={styles.scrollViewContent}
+        />
+        <Text style={[styles.sectionTitle, isDarkMode && styles.sectionTitleDark]}>Beverages</Text>
+        <FlatList
+          data={BeveragesData}
+          renderItem={renderItem}
+          keyExtractor={(item) => item.id.toString()}
+          contentContainerStyle={styles.scrollViewContent}
+        />
+      </ScrollView>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingHorizontal: 15,
+    backgroundColor: '#fff', // Light mode background
   },
-  section: {
-    marginBottom: 20,
+  containerDark: {
+    backgroundColor: '#000', // Dark mode background
+  },
+  scrollViewContent: {
+    paddingHorizontal: 16,
+    paddingVertical: 20,
   },
   sectionTitle: {
-    fontSize: 24,
-    fontWeight: 'bold',
     marginBottom: 10,
-    color: '#333333',
+    fontSize: 18,
+    fontWeight: '600',
+    color: '#333', // Light mode text color
+    textAlign: 'center',
   },
-  listContainer: {
-    paddingBottom: 10,
+  sectionTitleDark: {
+    color: '#fff', // Dark mode text color
   },
   itemContainer: {
+    marginBottom: 16,
+    borderRadius: 10,
+    elevation: 4,
+    backgroundColor: '#fff', // Light mode background
+    padding: 12,
+  },
+  itemContainerDark: {
+    backgroundColor: '#333', // Dark mode background
+  },
+  itemView: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 15,
-    marginRight: 15,
-    backgroundColor: '#f0f0f0',
+    backgroundColor: '#fff', // Light mode background
     borderRadius: 10,
-    overflow: 'hidden',
-    borderColor: '#ccc',
-    borderWidth: 1,
+    elevation: 4,
+    padding: 12,
+  },
+  itemViewDark: {
+    backgroundColor: '#444', // Dark mode background
   },
   itemImage: {
-    width: 100,
-    height: 100,
-    resizeMode: 'cover',
+    width: 80,
+    height: 80,
+    borderRadius: 8,
   },
   itemDetails: {
     flex: 1,
-    padding: 10,
+    marginLeft: 12,
   },
   itemName: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    marginBottom: 5,
+    fontSize: 16,
+    fontWeight: '600',
+    color: '#000', // Light mode text color
+  },
+  itemNameDark: {
+    color: '#fff', // Dark mode text color
   },
   itemDescription: {
     fontSize: 14,
-    marginBottom: 5,
+    color: '#666', // Light mode text color
+  },
+  itemDescriptionDark: {
+    color: '#bbb', // Dark mode text color
+  },
+  itemPriceContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 8,
   },
   itemPrice: {
     fontSize: 16,
-    fontWeight: 'bold',
-    color: '#333333',
-    marginBottom: 2,
+    fontWeight: '700',
+    color: 'green', // Light mode text color
+    marginTop: 4,
+  },
+  itemPriceDark: {
+    color: 'lightgreen', // Dark mode text color
   },
   itemDiscount: {
     fontSize: 14,
-    color: '#999999',
+    color: '#999', // Light mode text color
+    marginLeft: 8,
+    textDecorationLine: 'line-through',
+  },
+  itemDiscountDark: {
+    color: '#888', // Dark mode text color
+  },
+  addToCartBtn: {
+    backgroundColor: '#E98B07',
+    paddingHorizontal: 12,
+    paddingVertical: 8,
+    borderRadius: 8,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  addToCartBtnDark: {
+    backgroundColor: '#D87A05', // Dark mode background color
+  },
+  addToCartText: {
+    color: '#fff', // Light mode text color
+    fontWeight: '600',
+    fontSize: 14,
+  },
+  addToCartTextDark: {
+    color: '#eee', // Dark mode text color
   },
 });
 

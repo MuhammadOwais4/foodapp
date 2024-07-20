@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, TouchableOpacity, useColorScheme } from 'react-
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { translation } from '../../utils';
 import Loader from '../common/Loader';
+import LanguageModal from '../common/LangaugeModal';
 
 const SelectLogin = ({ navigation }) => {
   const [langModalVisible, setLangModalVisible] = useState(false);
