@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, Dimensions, TouchableOpacity, TextInput, Image } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, StyleSheet, Dimensions, TouchableOpacity, TextInput, Image, useColorScheme } from 'react-native';
 import { useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 
@@ -7,12 +7,14 @@ const { width } = Dimensions.get('window');
 
 const Payment = () => {
   const navigation = useNavigation();
+  const colorScheme = useColorScheme(); // Detect current theme (light or dark)
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState('');
-  const cart = useSelector(state => state.user.cart); 
-    const calculateTotalAmount = () => {
+  const cart = useSelector(state => state.user.cart);
+
+  const calculateTotalAmount = () => {
     let total = 0;
     cart.forEach(item => {
-      const price = parseFloat(item.price.replace('$', '')); 
+      const price = parseFloat(item.price.replace('$', ''));
       total += price * item.quantity;
     });
     return total.toFixed(2);
@@ -24,38 +26,38 @@ const Payment = () => {
   };
 
   return (
-    <View style={styles.container}>
+    <View style={styles.container(colorScheme)}>
       <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
         <Image source={require('../images/back_icon.png')} style={styles.backIcon} />
       </TouchableOpacity>
       <Text style={[styles.header, styles.textWhite]}>Payment</Text>
-      
-      <View style={styles.cardContainer}>
+
+      <View style={styles.cardContainer(colorScheme)}>
         <Image source={require('../images/card.png')} style={styles.cardImage} />
       </View>
 
       <Text style={[styles.sectionHeader, styles.textWhite]}>Choose Payment Method</Text>
       <View style={styles.paymentMethods}>
-        <TouchableOpacity 
-          style={[styles.paymentMethodButton, selectedPaymentMethod === 'mastercard' && styles.selectedMethod]}
+        <TouchableOpacity
+          style={[styles.paymentMethodButton(colorScheme), selectedPaymentMethod === 'mastercard' && styles.selectedMethod]}
           onPress={() => setSelectedPaymentMethod('mastercard')}
         >
           <Image source={require('../images/mastercard.png')} style={styles.paymentMethodIcon} />
         </TouchableOpacity>
-        <TouchableOpacity 
-          style={[styles.paymentMethodButton, selectedPaymentMethod === 'jazzcash' && styles.selectedMethod]}
+        <TouchableOpacity
+          style={[styles.paymentMethodButton(colorScheme), selectedPaymentMethod === 'jazzcash' && styles.selectedMethod]}
           onPress={() => setSelectedPaymentMethod('jazzcash')}
         >
           <Image source={require('../images/jazzcash.png')} style={styles.paymentMethodIcon} />
         </TouchableOpacity>
-        <TouchableOpacity 
-          style={[styles.paymentMethodButton, selectedPaymentMethod === 'paypal' && styles.selectedMethod]}
+        <TouchableOpacity
+          style={[styles.paymentMethodButton(colorScheme), selectedPaymentMethod === 'paypal' && styles.selectedMethod]}
           onPress={() => setSelectedPaymentMethod('paypal')}
         >
           <Image source={require('../images/Paypal.png')} style={styles.paymentMethodIcon} />
         </TouchableOpacity>
-        <TouchableOpacity 
-          style={[styles.paymentMethodButton, selectedPaymentMethod === 'easyPasia' && styles.selectedMethod]}
+        <TouchableOpacity
+          style={[styles.paymentMethodButton(colorScheme), selectedPaymentMethod === 'easyPasia' && styles.selectedMethod]}
           onPress={() => setSelectedPaymentMethod('easyPasia')}
         >
           <Image source={require('../images/easyPasia.png')} style={styles.paymentMethodIcon} />
@@ -69,11 +71,11 @@ const Payment = () => {
       )}
 
       <Text style={[styles.sectionHeader, styles.textWhite]}>Promo Code</Text>
-      <View style={styles.promoCodeContainer}>
-        <TextInput 
-          style={styles.promoCodeInput} 
-          placeholder="Promo code" 
-          placeholderTextColor="#888" 
+      <View style={styles.promoCodeContainer(colorScheme)}>
+        <TextInput
+          style={styles.promoCodeInput(colorScheme)}
+          placeholder="Promo code"
+          placeholderTextColor={colorScheme === 'dark' ? '#888' : '#888'}
         />
         <TouchableOpacity style={styles.applyButton}>
           <Text style={styles.applyButtonText}>Apply</Text>
@@ -93,14 +95,14 @@ const Payment = () => {
 };
 
 const styles = StyleSheet.create({
-  container: {
+  container: (colorScheme) => ({
     flex: 1,
-    padding: 2,
-    backgroundColor: '#000',
-  },
+    padding: 16,
+    backgroundColor: colorScheme === 'dark' ? '#000' : '#fff',
+  }),
   backButton: {
-    width: 25, 
-    height: 25, 
+    width: 25,
+    height: 25,
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 10,
@@ -117,13 +119,13 @@ const styles = StyleSheet.create({
   textWhite: {
     color: '#FFF',
   },
-  cardContainer: {
-    backgroundColor: '#1c1c1e',
+  cardContainer: (colorScheme) => ({
+    backgroundColor: colorScheme === 'dark' ? '#1c1c1e' : '#f8f8f8',
     borderRadius: 10,
     padding: 20,
     alignItems: 'center',
     marginBottom: 20,
-  },
+  }),
   cardImage: {
     width: '100%',
     height: 150,
@@ -139,13 +141,13 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     marginBottom: 20,
   },
-  paymentMethodButton: {
-    backgroundColor: '#2c2c2e',
+  paymentMethodButton: (colorScheme) => ({
+    backgroundColor: colorScheme === 'dark' ? '#2c2c2e' : '#e0e0e0',
     padding: 15,
     borderRadius: 10,
     alignItems: 'center',
     justifyContent: 'center',
-  },
+  }),
   selectedMethod: {
     borderColor: '#0a84ff',
     borderWidth: 2,
@@ -160,18 +162,18 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     textAlign: 'center',
   },
-  promoCodeContainer: {
+  promoCodeContainer: (colorScheme) => ({
     flexDirection: 'row',
     justifyContent: 'space-between',
-    backgroundColor: '#1c1c1e',
+    backgroundColor: colorScheme === 'dark' ? '#1c1c1e' : '#f8f8f8',
     borderRadius: 10,
     padding: 10,
     marginBottom: 20,
-  },
-  promoCodeInput: {
+  }),
+  promoCodeInput: (colorScheme) => ({
     flex: 1,
-    color: '#FFF',
-  },
+    color: colorScheme === 'dark' ? '#FFF' : '#000',
+  }),
   applyButton: {
     backgroundColor: '#0a84ff',
     borderRadius: 10,

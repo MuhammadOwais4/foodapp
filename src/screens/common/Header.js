@@ -1,10 +1,12 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Image, useColorScheme } from 'react-native';
 
 const Header = ({ title, icon, onClickIcon, cartItemCount }) => {
+  const colorScheme = useColorScheme(); // Detect current theme (light or dark)
+
   return (
-    <View style={styles.header}>
-      <Text style={styles.title}>{title}</Text>
+    <View style={styles.header(colorScheme)}>
+      <Text style={styles.title(colorScheme)}>{title}</Text>
       <TouchableOpacity onPress={onClickIcon} style={styles.iconContainer}>
         <Image source={require('./../../images/cart.png')} style={styles.icon} />
         {cartItemCount > 0 && (
@@ -18,18 +20,19 @@ const Header = ({ title, icon, onClickIcon, cartItemCount }) => {
 };
 
 const styles = StyleSheet.create({
-  header: {
+  header: (colorScheme) => ({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     padding: 16,
-    backgroundColor: '#fff',
+    backgroundColor: colorScheme === 'dark' ? '#333' : '#fff',
     elevation: 4,
-  },
-  title: {
+  }),
+  title: (colorScheme) => ({
     fontSize: 20,
     fontWeight: 'bold',
-  },
+    color: colorScheme === 'dark' ? '#fff' : '#000',
+  }),
   iconContainer: {
     position: 'relative',
   },
